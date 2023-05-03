@@ -109,12 +109,10 @@ issue#３ Todo の作成画面の実装の場合
 #issue 番号 + プレフィックス + 日本語で端的に
 
 - **プレフィックス**をつける
-  - add: 機能追加
+  - feature: 機能追加
   - fix: バグ修正
   - config: 設定
   - refactor: リファクタリング
-  - docs:ドキュメント
-  - chore: その他環境構築など雑用
 
 例）
 `git commit -m '#3 refactor: Todo作成画面のレイアウト調整' `
