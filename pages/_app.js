@@ -6,6 +6,7 @@ const App = ({ Component, pageProps }) => {
     <ChakraProvider>
       <Component {...pageProps} />
     </ChakraProvider>
+    
   );
 }
 
