@@ -12,6 +12,7 @@ import {
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
+import { SearchInput } from '@/top.component/searchInput'
 
 function Top() {
   return (
@@ -24,8 +25,8 @@ function Top() {
       </Box>
       <Heading as='h2' size='1xl' >TODO LIST</Heading>
       <p>SEARCH</p>
-      <Input placeholder='Text' />
-      {/* inputで合っているのか自信ない */}
+      <SearchInput />
+      {/* chakraとのデザインが合わない　chakraから引用すべきか */}
       {/* searchIconを中に入れる方法がわからない */}
       <p>STATUS</p>
       <Select placeholder='-------'>
