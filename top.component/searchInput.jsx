@@ -4,7 +4,7 @@ import { Input } from '@chakra-ui/react'
 export const SearchInput = () => {
   return (
     <div>
-      <Input placeholder='Text'/>
+      <Input type='text' onChange={() => {}} placeholder='Text'/>
       <button><Search2Icon /></button>
     </div>
   )

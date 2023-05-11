@@ -13,8 +13,14 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import { SearchInput } from '@/top.component/searchInput'
+import { ResetButton } from '@/top.component/resetButton'
+// import "../styles/top.css";
+// 読み込むとエラーになる
 
 function Top() {
+    
+
+
   return (
     <div>
       <Box bg='#68D391' w='100%' p={4} >
@@ -24,6 +30,7 @@ function Top() {
       {/* </Container> */}
       </Box>
       <Heading as='h2' size='1xl' >TODO LIST</Heading>
+      <div className='container'>
       <p>SEARCH</p>
       <SearchInput />
       {/* chakraとのデザインが合わない　chakraから引用すべきか */}
@@ -40,8 +47,10 @@ function Top() {
         <option value='option2'>Middle</option>
         <option value='option3'>Low</option>
       </Select>
-      <Button colorScheme='gray'>Reset</Button>
-      {/* 色の指定をするとボタンが消える */}
+      </div>
+      <ResetButton />
+      {/* リセットボタンが出ない */}
+      
       {/* <EditIcon /> */}
       {/* 該当のアイコンがない　モジュールインストール必要？ */}
 
