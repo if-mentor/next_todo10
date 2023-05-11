@@ -18,8 +18,6 @@ import { ResetButton } from '@/top.component/resetButton'
 // 読み込むとエラーになる
 
 function Top() {
-    
-
 
   return (
     <div>
