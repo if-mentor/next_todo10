@@ -10,16 +10,17 @@ cssの書く場所はどこにすべきか
 grid,overlayの扱いが分からない
 Boxだらけで見づらい。。。
 
+@やったこと
+あまりにも長いので一部コンポーネント化しました。
+modalはopenmodalを押して消すところだけ実装しました。
+
 @おすすめ機能
 auto rename tag
 locator js
 
 @タスク
 主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
-配置未完了→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
-大きさ未完了→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
-色未完了→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
-文字未完了→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
+
 */
 
 import Head from "next/head";
@@ -28,18 +29,11 @@ import {
   Button,
   chakra,
   HStack,
-  Modal,
-  ModalOverlay,
-  ModalCloseButton,
-  ModalHeader,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  FormControl,
-  FormLabel,
-  Input,
   VStack,
+  Spacer,
 } from "@chakra-ui/react";
+import { ComentCards } from "./components/comentCards";
+import { ModalTodoShow } from "./components/modalTodoShow";
 
 const Home = () => {
   return (
@@ -56,41 +50,47 @@ const Home = () => {
       <chakra.header position={"absolute"} w={"1280px"} h={"80px"} bg="#68D391">
         <Box
           position={"absolute"}
-          width={"127px"}
+          width={"200px"}
           height={"56px"}
           left={"99px"}
           top={"12px"}
+          
+          fontSize={"48px"}
+          lineHeight={"56.25px"}
         >
-          Todo
+          TODO
         </Box>
       </chakra.header>
 
       {/* title */}
       <Box
         position={"absolute"}
-        w={"161px"}
+        w={"300px"}
         h={"33px"}
         top={"96px"}
         left={"100px"}
+        fontSize={"28px"}
+        lineHeight={"32.81px"}
       >
         SHOW TODO
       </Box>
 
       {/* Comment Button */}
-      <Box
+      <Button
         position={"absolute"}
         w={"104px"}
         h={"40px"}
         left={"956px"}
         top={"104px"}
+        color={"#F0FFF4"}
         borderRadius={"50px"}
         bg="#25855A"
       >
-        <button>Comment</button>
-      </Box>
+        Comment
+      </Button>
 
       {/* Back Button */}
-      <Box
+      <Button
         position={"absolute"}
         w={"104px"}
         h={"40px"}
@@ -100,8 +100,8 @@ const Home = () => {
         border={"1px"}
         bg="#68D391"
       >
-        <button>Back</button>
-      </Box>
+        Back
+      </Button>
 
       {/* Show Table */}
       <VStack
@@ -114,13 +114,25 @@ const Home = () => {
         border={"1px"}
         borderColor={"blackAlpha.800"}
       >
-        <Box position={"absolute"} w={"560px"} h={"61px"} left={"16px"} top={"16px"}>
+        <Box
+          position={"absolute"}
+          w={"560px"}
+          h={"61px"}
+          left={"16px"}
+          top={"16px"}
+        >
           <Box bgColor={"green.300"}>
             <Box>TITLE</Box>
           </Box>
           <Box>Github上に静的サイトをホスティングする</Box>
         </Box>
-        <Box position={"absolute"} w={"560px"} h={"291px"} left={"16px"} top={"93px"}>
+        <Box
+          position={"absolute"}
+          w={"560px"}
+          h={"291px"}
+          left={"16px"}
+          top={"93px"}
+        >
           <Box bgColor={"green.300"}>
             <Box>DETAIL</Box>
           </Box>
@@ -135,13 +147,20 @@ const Home = () => {
             ベースのワークフローを提供します。それにより、コードコミットごとに、サイトに自動的に更新をデプロイすることができます。
           </Box>
         </Box>
-        <HStack position={"absolute"} w={"560px"} h={"45px"} left={"16px"} top={"400px"} bgColor={"blue.100"}>
-          {/* あとで色消す */}
-          <Box ml={"auto"}>
+        <HStack
+          position={"absolute"}
+          w={"560px"}
+          h={"45px"}
+          left={"16px"}
+          top={"400px"}
+        >
+          <ModalTodoShow />
+          <Spacer />
+          <Box>
             <Box>Create</Box>
             <Box> 2020-11-8 18:55</Box>
           </Box>
-          <Box ml={"auto"}>
+          <Box>
             <Box>Update</Box>
             <Box> 2020-11-8 18:55</Box>
           </Box>
@@ -149,79 +168,9 @@ const Home = () => {
       </VStack>
 
       {/* Comment */}
-      <VStack
-        position={"absolute"}
-        w={"472px"}
-        h={"464px"}
-        left={"708px"}
-        top={"160px"}
-      >
-        {/* コードが長くなるので一つだけ*/}
-        <Box
-          position={"absolute"}
-          w={"472px"}
-          h={"104px"}
-          top={"px"}
-          border={"1px"}
-          borderRadius={"10px"}
-          overflow={"hidden"}
-        >
-          <HStack
-            w={"472px"}
-            h={"28px"}
-            border={"1px"}
-            borderColor={"blackAlpha.800"}
-            bgColor={"green.600"}
-          >
-            <Box
-              position={"absolute"}
-              w={"95px"}
-              h={"19px"}
-              left={"24px"}
-              top={"5px"}
-            >
-              ジョン
-            </Box>
-            <Box
-              position={"absolute"}
-              w={"87px"}
-              h={"19px"}
-              left={"361px"}
-              top={"4px"}
-            >
-              2022/01/01
-            </Box>
-          </HStack>
-          <Box>2日後までに完了お願い致します。</Box>
-        </Box>
-        {/* <Box>リンゴ</Box>
-        <Box>ポール</Box>
-        <Box>ジョージ</Box> */}
-      </VStack>
+      <ComentCards />
 
       {/* modal */}
-      <Modal>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Comment</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <FormLabel>Name</FormLabel>
-              <Input placeholder="内田裕也" />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Your Comment</FormLabel>
-              <Input placeholder="シェケナベイべ" />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button>CREATE</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
 
       {/* ここまで */}
     </>
