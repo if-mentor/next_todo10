@@ -160,7 +160,7 @@ function Top() {
             <p>SEARCH</p>
             <SearchInput todoSearchTitle={todoSearchTitle} setTodoSearchTitle={setTodoSearchTitle} />
           </Box>
-          <Box>
+          <Box ml='15px'>
             <p>STATUS</p>
             <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
               <option value='all'>-------</option>
@@ -169,7 +169,7 @@ function Top() {
               <option value='done'>DONE</option>
             </Select>
           </Box>
-          <Box>
+          <Box ml='15px'>
             <p>PRIORITY</p>
             <Select value={filter2} onChange={(e) => setFilter2(e.target.value)}>
               <option value='all'>-------</option>
@@ -179,14 +179,14 @@ function Top() {
             </Select>
           </Box>
           <ResetButton />
-          <Box ml='80px'>
+          <Box ml='340px' mt='10'>
             <EditIcon />
           </Box>
         </Box>
 
         <TableContainer>
           <Table size='sm' variant='simple'>
-            <Thead fontSize='3xl' bg='#68D391'>
+            <Thead size='3xl' bg='#68D391'>
               {/* 文字サイズが変わらない */}
               <Tr>
                 <Th>Task</Th>
@@ -231,7 +231,7 @@ function Top() {
                   <Td>{todo.updateDate}</Td>
                   {/* <Td>{todo.action}</Td> */}
                   <Td>
-                    <button onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
+                    <button ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
                     {/* ボタンの隙間を開けたい　ml={5}効かない */}
                     <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
                   </Td>
