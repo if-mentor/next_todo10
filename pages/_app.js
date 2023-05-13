@@ -1,9 +1,7 @@
 import '@/styles/globals.css'
-_app/index.tsx
 import { ChakraProvider } from '@chakra-ui/react';
 
-
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   return (
     <ChakraProvider>
       <Component {...pageProps} />
