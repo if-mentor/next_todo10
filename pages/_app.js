@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-// _app/index.tsx
+_app/index.tsx
 import { ChakraProvider } from '@chakra-ui/react';
 
 
