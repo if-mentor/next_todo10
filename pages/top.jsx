@@ -110,16 +110,16 @@ function Top() {
           setFilteredTodos(todos.filter((todo) => todo.status === 'notStarted'))
           break
         case 'doing':
-            setFilteredTodos(todos.filter((todo) => todo.status === 'doing'))
-            break
+          setFilteredTodos(todos.filter((todo) => todo.status === 'doing'))
+          break
         case 'done':
-            setFilteredTodos(todos.filter((todo) => todo.status === 'done'))
-            break
-            default:
-              setFilteredTodos(todos)
-          }
-        }
-        filteringTodos()
+          setFilteredTodos(todos.filter((todo) => todo.status === 'done'))
+          break
+        default:
+          setFilteredTodos(todos)
+      }
+    }
+    filteringTodos()
   }, [filter, todos])
 
   useEffect(() => {
@@ -129,16 +129,16 @@ function Top() {
           setFilteredTodos2(todos.filter((todo) => todo.status === 'high'))
           break
         case 'middle':
-            setFilteredTodos2(todos.filter((todo) => todo.status === 'middle'))
-            break
+          setFilteredTodos2(todos.filter((todo) => todo.status === 'middle'))
+          break
         case 'low':
-            setFilteredTodos2(todos.filter((todo) => todo.status === 'low'))
-            break
-            default:
-              setFilteredTodos2(todos)
-          }
-        }
-        filteringTodos2()
+          setFilteredTodos2(todos.filter((todo) => todo.status === 'low'))
+          break
+        default:
+          setFilteredTodos2(todos)
+      }
+    }
+    filteringTodos2()
   }, [filter2, todos])
   
 
@@ -147,110 +147,101 @@ function Top() {
   // }
 
   return (
-    <>
-    {isEditable ? (編集ページ):
     <div>
       <Box bg='#68D391' w='100%' p={4} >
-      {/* <Container maxW='container.sm' bg='#68D391' > */}
-        {/* containerの幅を広げたい */}
-      <Heading as='h1' size='4xl' >TODO</Heading>
-      {/* </Container> */}
+        <Heading as='h1' size='4xl' >TODO</Heading>
       </Box>
-      <Box maxW='1080px' m='0 auto'>
-      <Heading as='h2' size='2xl' >TODO LIST</Heading>
-      <Box display='flex' mt='32px' mb='32px'>
-        <Box>
-          <p>SEARCH</p>
-          <SearchInput todoSearchTitle={todoSearchTitle} setTodoSearchTitle={setTodoSearchTitle} />
-        </Box>
-        <Box>
-          <p>STATUS</p>
-          <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value='all'>-------</option>
-            <option value='notStarted'>NOT STARTED</option>
-            <option value='doing'>DOING</option>
-            <option value='done'>DONE</option>
-          </Select>
-        </Box>
-        <Box>
-          <p>PRIORITY</p>
-          <Select value={filter2} onChange={(e) => setFilter2(e.target.value)}>
-            <option value='all'>-------</option>
-            <option value='high'>High</option>
-            <option value='middle'>Middle</option>
-            <option value='low'>Low</option>
-          </Select>
-        </Box>
-      <ResetButton />
-      <Box ml='80px'>
-      <EditIcon />
-      </Box>
-      </Box>
-      {/* リセットボタンが出ない */}
-      
-      {/* 該当のアイコンがない　モジュールインストール必要？ */}
 
-      <TableContainer>
-  <Table size='sm' variant='simple'>
-    <Thead fontSize='3xl' bg='#68D391'>
-      {/* 文字サイズが変わらない */}
-      <Tr>
-        <Th>Task</Th>
-        <Th>Status</Th>
-        <Th>Priority</Th>
-        <Th>Create</Th>
-        <Th>Update</Th>
-        <Th>Action</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      {filteredTodos.map((todo)=> (
-        //filteredTodos2もしたい
-        <Tr key={todo.id}>
-          <Td>{todo.title}</Td>
-          {/* <Td>{todo.status}</Td> */}
-          <Td>
-            <Select bg='#68D391'
-                    borderColor='black'
-                    // ベースの色にしたい
-                    color='white' 
-                    borderRadius='full'
-                    value={todo.status} 
-                    onChange={(e) => handleStatusChange(todo, e)}
-            >
-              {/* statusに合わせてデザイン変更したい */}
+      <Box maxW='1080px' m='0 auto'>
+        <Heading as='h2' size='2xl' >TODO LIST</Heading>
+        <Box display='flex' mt='32px' mb='32px'>
+          
+          <Box>
+            <p>SEARCH</p>
+            <SearchInput todoSearchTitle={todoSearchTitle} setTodoSearchTitle={setTodoSearchTitle} />
+          </Box>
+          <Box>
+            <p>STATUS</p>
+            <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
+              <option value='all'>-------</option>
               <option value='notStarted'>NOT STARTED</option>
               <option value='doing'>DOING</option>
               <option value='done'>DONE</option>
             </Select>
-          </Td>
-          {/* <Td>{todo.priority}</Td> */}
-          <Td>
-            <Select borderColor='tomato' value={todo.priority} onChange={(e) => handlePriorityChange(todo, e)}>
+          </Box>
+          <Box>
+            <p>PRIORITY</p>
+            <Select value={filter2} onChange={(e) => setFilter2(e.target.value)}>
+              <option value='all'>-------</option>
               <option value='high'>High</option>
               <option value='middle'>Middle</option>
               <option value='low'>Low</option>
             </Select>
-          </Td>
+          </Box>
+          <ResetButton />
+          <Box ml='80px'>
+            <EditIcon />
+          </Box>
+        </Box>
 
-          <Td>{todo.createDate}</Td>
-          <Td>{todo.updateDate}</Td>
-          {/* <Td>{todo.action}</Td> */}
-          <Td>
-            <button onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
-            {/* ボタンの隙間を開けたい　ml={5}効かない */}
-            <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
-          </Td>
-        </Tr>
-      ))}
-    </Tbody>
-    <Tfoot> 
-    </Tfoot>
-  </Table>
-</TableContainer>
-</Box>
-    </div>}
-    </>
+        <TableContainer>
+          <Table size='sm' variant='simple'>
+            <Thead fontSize='3xl' bg='#68D391'>
+              {/* 文字サイズが変わらない */}
+              <Tr>
+                <Th>Task</Th>
+                <Th>Status</Th>
+                <Th>Priority</Th>
+                <Th>Create</Th>
+                <Th>Update</Th>
+                <Th>Action</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {filteredTodos.map((todo)=> (
+                //filteredTodos2もしたい
+                <Tr key={todo.id}>
+                  <Td>{todo.title}</Td>
+                  {/* <Td>{todo.status}</Td> */}
+                  <Td>
+                    <Select bg='#68D391'
+                            borderColor='black'
+                            // ベースの色にしたい
+                            color='white' 
+                            borderRadius='full'
+                            value={todo.status} 
+                            onChange={(e) => handleStatusChange(todo, e)}
+                    >
+                      {/* statusに合わせてデザイン変更したい */}
+                      <option value='notStarted'>NOT STARTED</option>
+                      <option value='doing'>DOING</option>
+                      <option value='done'>DONE</option>
+                    </Select>
+                  </Td>
+                  {/* <Td>{todo.priority}</Td> */}
+                  <Td>
+                    <Select borderColor='tomato' value={todo.priority} onChange={(e) => handlePriorityChange(todo, e)}>
+                      <option value='high'>High</option>
+                      <option value='middle'>Middle</option>
+                      <option value='low'>Low</option>
+                    </Select>
+                  </Td>
+
+                  <Td>{todo.createDate}</Td>
+                  <Td>{todo.updateDate}</Td>
+                  {/* <Td>{todo.action}</Td> */}
+                  <Td>
+                    <button onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
+                    {/* ボタンの隙間を開けたい　ml={5}効かない */}
+                    <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </div>
   )
 }
 
