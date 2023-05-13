@@ -10,7 +10,7 @@ const Home = () => {
       </Head>
 
       <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <h1>Hello, Next.js !!</h1>
+        <h1>Hello, Next.js HELLO!!</h1>
       </div>
     </>
   );
