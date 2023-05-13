@@ -1,10 +1,10 @@
-import { Button } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
 
 export const ResetButton = () => {
   return (
-    <div>
-      <Button colorScheme='grey'>Reset</Button>
+    <Box>
+      <Button colorScheme='green' variant='solid'>Reset</Button>
       {/* 色の指定をするとボタンが消える B5B5B5 */}
-    </div>
+    </Box>
   )
 }
