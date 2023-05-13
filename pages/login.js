@@ -17,17 +17,4 @@ const login = () => {
   )
 }
 
-{/* header */}
-<chakra.header position={"absolute"} w={"1280px"} h={"80px"} bg="#68D391">
-<Box
-  position={"absolute"}
-  width={"127px"}
-  height={"56px"}
-  left={"99px"}
-  top={"12px"}
->
-  Todo
-</Box>
-</chakra.header>
-
 export default login
