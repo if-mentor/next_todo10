@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Heading, Container, Input, Select, Icon, Button, Box, Flex } from '@chakra-ui/react'
+import { Heading, Container, Input, Select, Icon, Button, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Table,
@@ -149,7 +149,7 @@ function Top() {
   return (
     <div>
       <Box bg='#68D391' w='100%' p={4} >
-        <Heading as='h1' size='4xl' >TODO</Heading>
+        <Heading as='h1' size='4xl'>TODO</Heading>
       </Box>
 
       <Box maxW='1080px' m='0 auto'>
@@ -187,14 +187,13 @@ function Top() {
         <TableContainer>
           <Table size='sm' variant='simple'>
             <Thead size='3xl' bg='#68D391'>
-              {/* 文字サイズが変わらない */}
               <Tr>
-                <Th>Task</Th>
-                <Th>Status</Th>
-                <Th>Priority</Th>
-                <Th>Create</Th>
-                <Th>Update</Th>
-                <Th>Action</Th>
+                <Th fontSize="2xl" textTransform="none">Task</Th>
+                <Th fontSize="2xl" textTransform="none">Status</Th>
+                <Th fontSize="2xl" textTransform="none">Priority</Th>
+                <Th fontSize="2xl" textTransform="none">Create</Th>
+                <Th fontSize="2xl" textTransform="none">Update</Th>
+                <Th fontSize="2xl" textTransform="none">Action</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -231,9 +230,11 @@ function Top() {
                   <Td>{todo.updateDate}</Td>
                   {/* <Td>{todo.action}</Td> */}
                   <Td>
-                    <button ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
-                    {/* ボタンの隙間を開けたい　ml={5}効かない */}
-                    <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
+                    <Flex>
+                      <button ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
+                      <Spacer />
+                      <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
+                    </Flex>
                   </Td>
                 </Tr>
               ))}
