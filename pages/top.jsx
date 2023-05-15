@@ -15,26 +15,9 @@ import {
 
 import { SearchInput } from '@/top.component/searchInput'
 import { ResetButton } from '@/top.component/resetButton'
+import { status } from '@/config/todo'
 
 function Top() {
-
-  const statusList = [
-    {
-      id: 1,
-      status: "not started",
-      backgroundColor: "black",
-    },
-    {
-      id: 2,
-      status: "doing",
-      backgroundColor: "green",
-    },
-    {
-      id: 3,
-      status: "done",
-      backgroundColor: "blue",
-    }
-  ]
   const [todos, setTodos] = useState([
     { id: 1,
       title: "Github上に静的サイトをホスティングする",
@@ -70,7 +53,7 @@ function Top() {
     },
     { id: 5,
       title: "二重の極み",
-      status: "done",
+      status: "doing",
       priority: "high",
       createDate: "date",
       updateDate: "date",
@@ -84,7 +67,7 @@ function Top() {
       updateDate: "date",
       action: "icons",
     }
-  ])
+  ]);
 
   const [todoSearchTitle, setTodoSearchTitle] = useState('');
   const [todoId, setTodoId] = useState(todos.length +1)
@@ -218,23 +201,23 @@ function Top() {
                 //filteredTodos2もしたい
                 <Tr key={todo.id}>
                   <Td>{todo.title}</Td>
-                  {/* <Td>{todo.status}</Td> */}
+
                   <Td>
-                  {/* <Select   bg={statusList[todo.]}
-                            borderColor='black'
-                            // ベースの色にしたい
-                            color='white' 
-                            borderRadius='full'
-                            value={todo.status} 
-                            onChange={(e) => handleStatusChange(todo, e)}
-                    > */}
+                    <Select 
+                      bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
+                      borderColor='black'
+                      color='white'
+                      borderRadius='full'
+                      value={todo.status} 
+                      onChange={(e) => handleStatusChange(todo, e)}
+                    >
                       {/* statusに合わせてデザイン変更したい */}
-                      {/* {statusList.map((value) => (
-                      <option key={value.id} value={value.status}>{value.status}</option>
+                      {status.map((value, index) => (
+                        <option key={index} value={value.text}>{value.text}</option>
                       ))}
-                    </Select> */}
+                    </Select>
                   </Td>
-                  {/* <Td>{todo.priority}</Td> */}
+
                   <Td>
                     <Select borderColor='tomato' value={todo.priority} onChange={(e) => handlePriorityChange(todo, e)}>
                       <option value='high'>High</option>
@@ -243,9 +226,14 @@ function Top() {
                     </Select>
                   </Td>
 
-                  <Td textAlign="center">{todo.createDate}</Td>
-                  <Td textAlign="center">{todo.updateDate}</Td>
-                  {/* <Td>{todo.action}</Td> */}
+                  <Td textAlign="center">
+                    {todo.createDate}
+                  </Td>
+                  
+                  <Td textAlign="center">
+                    {todo.updateDate}
+                  </Td>
+
                   <Td>
                     <Flex justifyContent="center">
                       <button style={{display: "inline-block", marginRight: "10px"}} ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
