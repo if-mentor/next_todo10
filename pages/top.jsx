@@ -18,6 +18,23 @@ import { ResetButton } from '@/top.component/resetButton'
 
 function Top() {
 
+  const statusList = [
+    {
+      id: 1,
+      status: "not started",
+      backgroundColor: "black",
+    },
+    {
+      id: 2,
+      status: "doing",
+      backgroundColor: "green",
+    },
+    {
+      id: 3,
+      status: "done",
+      backgroundColor: "blue",
+    }
+  ]
   const [todos, setTodos] = useState([
     { id: 1,
       title: "Github上に静的サイトをホスティングする",
@@ -148,8 +165,8 @@ function Top() {
 
   return (
     <div>
-      <Box bg='#68D391' w='100%' p={4} >
-        <Heading as='h1' size='4xl'>TODO</Heading>
+      <Box bg='#68D391' w='100%' p={4}>
+        <Heading as='h1' size='4xl' maxW='1080px' m="0 auto">TODO</Heading>
       </Box>
 
       <Box maxW='1080px' m='0 auto'>
@@ -186,14 +203,14 @@ function Top() {
 
         <TableContainer>
           <Table size='sm' variant='simple'>
-            <Thead size='3xl' bg='#68D391'>
+            <Thead size='3xl' bg='#68D391'height="16">
               <Tr>
-                <Th fontSize="2xl" textTransform="none">Task</Th>
-                <Th fontSize="2xl" textTransform="none">Status</Th>
-                <Th fontSize="2xl" textTransform="none">Priority</Th>
-                <Th fontSize="2xl" textTransform="none">Create</Th>
-                <Th fontSize="2xl" textTransform="none">Update</Th>
-                <Th fontSize="2xl" textTransform="none">Action</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Task</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Status</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Priority</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Create</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Update</Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">Action</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -203,19 +220,19 @@ function Top() {
                   <Td>{todo.title}</Td>
                   {/* <Td>{todo.status}</Td> */}
                   <Td>
-                    <Select bg='#68D391'
+                  {/* <Select   bg={statusList[todo.]}
                             borderColor='black'
                             // ベースの色にしたい
                             color='white' 
                             borderRadius='full'
                             value={todo.status} 
                             onChange={(e) => handleStatusChange(todo, e)}
-                    >
+                    > */}
                       {/* statusに合わせてデザイン変更したい */}
-                      <option value='notStarted'>NOT STARTED</option>
-                      <option value='doing'>DOING</option>
-                      <option value='done'>DONE</option>
-                    </Select>
+                      {/* {statusList.map((value) => (
+                      <option key={value.id} value={value.status}>{value.status}</option>
+                      ))}
+                    </Select> */}
                   </Td>
                   {/* <Td>{todo.priority}</Td> */}
                   <Td>
@@ -226,13 +243,12 @@ function Top() {
                     </Select>
                   </Td>
 
-                  <Td>{todo.createDate}</Td>
-                  <Td>{todo.updateDate}</Td>
+                  <Td textAlign="center">{todo.createDate}</Td>
+                  <Td textAlign="center">{todo.updateDate}</Td>
                   {/* <Td>{todo.action}</Td> */}
                   <Td>
-                    <Flex>
-                      <button ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
-                      <Spacer />
+                    <Flex justifyContent="center">
+                      <button style={{display: "inline-block", marginRight: "10px"}} ml='150px'  onClick={() =>handleOpenEditPage(todo)}><EditIcon /></button>
                       <button onClick={() => handleDeleteTodo(todo)} ml={5}><DeleteIcon /></button>
                     </Flex>
                   </Td>
