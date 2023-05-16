@@ -11,6 +11,6 @@ export const status = [
 
   {
     text: "done",
-    backgroundColor: "skyblue"
+    backgroundColor: "blue"
   }
 ];
