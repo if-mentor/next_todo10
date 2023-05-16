@@ -24,7 +24,7 @@ const EditTodo =()=>{
                 justifyContent='center'
                 alignItems='center'
             >
-                <Flex
+                <Box
                     w='85%'
                     maxW='1080px'
                 >
@@ -36,7 +36,7 @@ const EditTodo =()=>{
                     >
                     TODO
                     </Heading>
-                </Flex>
+                </Box>
             </Box>
 
             <Container
@@ -44,7 +44,7 @@ const EditTodo =()=>{
                 maxW='1080px'
                 pt='16px'
             >
-                <VStack>
+                <Box>
                     <Flex w={'100%'}>
                         <Heading as='h2'
                             fontSize='28px'
@@ -122,7 +122,7 @@ const EditTodo =()=>{
                             </Button>
                         </Flex>
                     </Box>
-                </VStack>
+                </Box>
             </Container>
         </>
     )
