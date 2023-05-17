@@ -66,7 +66,7 @@ const TodoCreate = () => {
               <Textarea id="description" value="" placeholder="Text" />
             </FormControl>
             <FormControl>
-              <FormLabel>PRIOLITY</FormLabel>
+              <FormLabel>PRIORITY</FormLabel>
               <RadioGroup value="">
                 <HStack spacing="24px">
                   <Radio value="male">High</Radio>
