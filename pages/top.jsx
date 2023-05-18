@@ -229,14 +229,12 @@ function Top() {
                       // bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
                       bg={status.find((value) => todo.status === value.text).backgroundColor}
                       color={status.find((value) => todo.status === value.text).color}
-                      // 大文字の展開について
                       borderColor='blackAlpha.800'
                       borderRadius='full'
                       value={todo.status} 
                       onChange={(e) => handleStatusChange(todo, e)}
                       fontWeight="bold"
                     >
-                      {/* statusに合わせてデザイン変更したい */}
                       {status.map((value, index) => (
                         <option key={index} value={value.text}>{value.word}</option>
                       ))}
