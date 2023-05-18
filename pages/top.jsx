@@ -1,70 +1,92 @@
 import React, { useState, useEffect } from 'react'
-import { Heading, Container, Input, Select, Icon, Button, Box, Flex, Spacer } from '@chakra-ui/react'
+import { Heading, Select, Box, Flex } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
 
 import { SearchInput } from '@/top.component/searchInput'
 import { ResetButton } from '@/top.component/resetButton'
-import { status } from '@/config/todo'
+// import { status } from '@/config/todo'
 
 function Top() {
+
+  const status = [
+    {
+      text: "not started",
+      backgroundColor: "green.100",
+      color: "blackAlpha.800",
+      word: "NOT STARTED"
+    },
+  
+    {
+      text: "doing",
+      backgroundColor: "green.600",
+      color: "white",
+      word: "DOING"
+    },
+  
+    {
+      text: "done",
+      backgroundColor: "green.300",
+      color: "blackAlpha.800",
+      word: "DONE"
+    }
+  ];  
+
   const [todos, setTodos] = useState([
     { id: 1,
       title: "Github上に静的サイトをホスティングする",
       status: "not started",
       priority: "high",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     },
     { id: 2,
       title: "ReactでTodoサイトを作成する",
       status: "doing",
       priority: "low",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     },
     { id: 3,
       title: "Firestore Hostingを学習する",
       status: "done",
       priority: "middle",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     },
     { id: 4,
       title: "感謝の正挙突き",
       status: "doing",
       priority: "high",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     },
     { id: 5,
       title: "二重の極み",
       status: "doing",
       priority: "high",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     },
     { id: 6,
       title: "魔封波",
       status: "doing",
       priority: "low",
-      createDate: "date",
-      updateDate: "date",
+      createDate: "2020-11-8 18:55",
+      updateDate: "2020-11-8 18:55",
       action: "icons",
     }
   ]);
@@ -107,7 +129,7 @@ function Top() {
     const filteringTodos = () => {
       switch (filter) {
         case 'notStarted':
-          setFilteredTodos(todos.filter((todo) => todo.status === 'notStarted'))
+          setFilteredTodos(todos.filter((todo) => todo.status === 'not started'))
           break
         case 'doing':
           setFilteredTodos(todos.filter((todo) => todo.status === 'doing'))
@@ -153,7 +175,7 @@ function Top() {
       </Box>
 
       <Box maxW='1080px' m='0 auto'>
-        <Heading as='h2' size='2xl' >TODO LIST</Heading>
+        <Heading as='h2' size='2xl' mt="2">TODO LIST</Heading>
         <Box display='flex' mt='32px' mb='32px'>
           
           <Box>
@@ -200,20 +222,23 @@ function Top() {
               {filteredTodos.map((todo)=> (
                 //filteredTodos2もしたい
                 <Tr key={todo.id}>
-                  <Td>{todo.title}</Td>
+                  <Td fontWeight="bold">{todo.title}</Td>
 
                   <Td>
                     <Select 
-                      bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
-                      borderColor='black'
-                      color='white'
+                      // bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
+                      bg={status.find((value) => todo.status === value.text).backgroundColor}
+                      color={status.find((value) => todo.status === value.text).color}
+                      // 大文字の展開について
+                      borderColor='blackAlpha.800'
                       borderRadius='full'
                       value={todo.status} 
                       onChange={(e) => handleStatusChange(todo, e)}
+                      fontWeight="bold"
                     >
                       {/* statusに合わせてデザイン変更したい */}
                       {status.map((value, index) => (
-                        <option key={index} value={value.text}>{value.text}</option>
+                        <option key={index} value={value.text}>{value.word}</option>
                       ))}
                     </Select>
                   </Td>
@@ -226,11 +251,11 @@ function Top() {
                     </Select>
                   </Td>
 
-                  <Td textAlign="center">
+                  <Td textAlign="center" fontWeight="bold">
                     {todo.createDate}
                   </Td>
                   
-                  <Td textAlign="center">
+                  <Td textAlign="center" fontWeight="bold">
                     {todo.updateDate}
                   </Td>
 

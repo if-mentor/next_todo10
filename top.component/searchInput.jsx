@@ -3,7 +3,7 @@ import { Icon, IconButton, Input, InputGroup, InputRightElement } from '@chakra-
 import { useEffect } from 'react'
 import "../pages/top"
 
-export function SearchInput(props) {
+export const SearchInput=(props) => {
 
   const { todoSearchTitle, setTodoSearchTitle } = props
 
