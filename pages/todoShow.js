@@ -33,7 +33,7 @@ import {
 import { ComentCards } from "./components/comentCards";
 import { ModalTodoShow } from "./components/modalTodoShow";
 
-const modalShow = () => {
+const todoShow = () => {
   return (
     <>
       {/* header */}
@@ -170,4 +170,4 @@ const modalShow = () => {
   );
 };
 
-export default modalShow;
+export default todoShow;

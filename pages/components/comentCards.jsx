@@ -1,3 +1,8 @@
+/*
+styleはtop以外同じなので複製できるようにしたい
+mapで処理したい
+*/
+
 import { VStack, Box, HStack } from "@chakra-ui/react";
 import * as styles from "../../styles/comentCards.module.css";
 
@@ -61,6 +66,8 @@ export const ComentCards = () => {
         </HStack>
         <Box>2日後までに完了お願い致します。</Box>
       </Box>
+
+      
     </VStack>
   );
 };
