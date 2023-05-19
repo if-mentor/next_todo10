@@ -1,10 +1,4 @@
-/**
- topページを目次みたいにしたい
- */
-
-
-import Head from "next/head";
-import Link from 'next/link'
+import Head from 'next/head'
 
 const Home = () => {
   return (
@@ -15,50 +9,11 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        
-        <ul>
-          <li>
-            <Link href="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              #2
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              #3
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              #4
-            </Link>
-          </li>
-          <li>
-            <Link href="/modalShow">
-              #5 modalTodoShow
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              #6
-            </Link>
-          </li>
-        </ul>
+      <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <h1>Hello, Next.js !!</h1>
       </div>
     </>
   );
-};
+}
 
 export default Home;
