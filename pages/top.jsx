@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Heading, Select, Box, Flex } from '@chakra-ui/react'
+import { Heading, Select, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Table,
@@ -201,7 +201,8 @@ function Top() {
             </Select>
           </Box>
           <ResetButton />
-          <Box ml='340px' mt='10'>
+          <Spacer />
+          <Box mt='10'>
             <EditIcon />
           </Box>
         </Box>
