@@ -7,8 +7,6 @@ import { Box,
     Spacer,
     Heading,
     Textarea,
-    HStack,
-    VStack,
     Text,
     Container } from '@chakra-ui/react';
 import Head from 'next/head'
@@ -24,19 +22,15 @@ const EditTodo =()=>{
                 justifyContent='center'
                 alignItems='center'
             >
-                <Box
+                <Heading
                     w='85%'
                     maxW='1080px'
+                    color='blackAlpha.800'
+                    fontSize='48px'
+                    fontWeight='bold'
                 >
-                    <Heading
-                        maxW='1080px'
-                        color='blackAlpha.800'
-                        fontSize='48px'
-                        fontWeight='bold'
-                    >
-                    TODO
-                    </Heading>
-                </Box>
+                TODO
+                </Heading>
             </Box>
 
             <Container
@@ -96,7 +90,6 @@ const EditTodo =()=>{
                                 fontSize='20px'
                                 placeholder='AWS コンソールで AWS Amplify を使って静的ウェブサイトをホスティングします。AWS Amplify は、静的ウェブサイトおよびウェブアプリにフルマネージドのホスティングを提供します。Amplify のホスティングソリューションは、Amazon CloudFront と Amazon S3 を使って、AWS コンテンツ配信ネットワーク (CDN) を介してサイトアセットを提供します。'
                             >
-                              
                             </Textarea>
                         </FormControl>
 
