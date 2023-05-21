@@ -18,7 +18,7 @@ const signup = () => {
         </Box>
       </Heading>
 
-      <Box height={"clac(100vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+      <Box height={"calc(80vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
           <Box bg={"green.100"} p={"60px"}  borderRadius={"40px"}>
             <Box p={"6px 32px"} bg={"#F0FFF4"} display={"inline-block"} borderRadius={"40px"}>
