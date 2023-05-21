@@ -1,0 +1,23 @@
+.commentFrame {
+  position: absolute;
+  width: 472px;
+  height: 104px;
+  border: 1px solid #000000CC;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.commentTopFrame {
+  width: 472px;
+  height: 28px;
+  border: 1px solid #000000CC;
+  background-color: #25855a;
+}
+
+.commentContent {
+    position: absolute;
+    width: 95px;
+    height: 19px;
+    top: 4px;
+    color: #F0FFF4;
+}
