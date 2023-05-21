@@ -2,23 +2,21 @@ import React from 'react'
 import {
   Box,
   Button,
-  chakra,
-  Headeing,
   Text,
   Input,
-  VStack,
+  Heading,
 } from "@chakra-ui/react";
 
 const login = () => {
   return (
     <>
-      <chakra.header w={"1280px"} h={"80px"} bg="#68D391">
+      <Heading w={"1280px"} h={"80px"} bg="#68D391">
         <Box width={"127px"} height={"56px"}left={"99px"}top={"12px"} bg="68D391">
           <Text paddingLeft={"20px"} fontWeight="bold" fontSize={'4xl'} fontStyle={'Roboto'} w={"127px"} h={"56px"} left={"99px"} top={"12px"}>
             TODO
           </Text>
         </Box>
-      </chakra.header>
+      </Heading>
 
       <Box height={"clac(100vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
@@ -40,7 +38,7 @@ const login = () => {
             </Box>
 
             <Box textAlign={"center"}>
-              <Button display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} weight={"200px"}>
+              <Button display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 LOGIN
               </Button>
             </Box>
