@@ -1,5 +1,6 @@
-import Head from 'next/head'
-import Link from 'next/link';
+import { VStack } from "@chakra-ui/react";
+import Head from "next/head";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -10,50 +11,18 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <ul>
-        <li>
-          <Link href="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link href="/login">
-            login
-          </Link>
-        </li>
-        <li>
-          <Link href="/signup">
-            signUp
-          </Link>
-        </li>
-        <li>
-          <Link href="/top">
-            top
-          </Link>
-        </li>
-        <li>
-          <Link href="/create">
-            create
-          </Link>
-        </li>
-        <li>
-          <Link href="/edittodo">
-            editTodo
-          </Link>
-        </li>
-        <li>
-          <Link href="/todoShow">
-            todoShow
-          </Link>
-        </li>
-        <li>
-          <Link href="/sdfglsdrg">
-            404
-          </Link>
-        </li>
-      </ul>
+      <VStack mt='200px'>
+        <Link href="/">Home</Link>
+        <Link href="/login">logIn</Link>
+        <Link href="/signup">signUp</Link>
+        <Link href="/top">top</Link> 
+        <Link href="/create">create</Link>
+        <Link href="/edittodo">editTodo</Link>
+        <Link href="/todoShow">todoShow</Link>
+        <Link href="/sdfglsdrg">404</Link>
+      </VStack>
     </>
   );
-}
+};
 
 export default Home;
