@@ -17,12 +17,12 @@ const Home = () => {
           </Link>
         </li>
         <li>
-          <Link href="/logIn">
+          <Link href="/login">
             login
           </Link>
         </li>
         <li>
-          <Link href="/signUp">
+          <Link href="/signup">
             signUp
           </Link>
         </li>
