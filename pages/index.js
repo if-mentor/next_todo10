@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Top from './Top';
+import Test from './Test';
 
 const Home = () => {
   return (
@@ -10,10 +10,11 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      {/* 面倒なので一時的に変更 */}
+      {/* <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <h1>Hello, Next.js HELLO!!</h1>
-      </div>
-      {/* <Top /> */}
+      </div> */}
+      <Test />
     </>
   );
 }
