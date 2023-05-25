@@ -1,4 +1,8 @@
 import Head from "next/head";
+import React, { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/libs/firebase";
+
 import {
   Heading,
   Input,
@@ -8,12 +12,32 @@ import {
   FormLabel,
   Box,
   Text,
-  HStack,
-  Radio,
-  RadioGroup,
 } from "@chakra-ui/react";
+import { RadioButton } from "@/create.component/radioButton";
 
 const TodoCreate = () => {
+  const [todoTitle, setTodoTitle] = useState('') 
+  const [todoText, setTodoText] = useState('')
+  const [todoPriority, setTodoPriority] = useState('')
+  const [todos, setTodos] = useState([])
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    setTodos({title: todoTitle, detail: todoText, priority: todoPriority})
+    addDoc(collection(db, "todos"), {
+      title:todoTitle,
+      description: todoText,
+      status: "not Started",
+      priority: todoPriority,
+      createDate: serverTimestamp(),
+      updateDate: serverTimestamp() ,
+    });
+    setTodoTitle("");
+    setTodoText("");
+    setTodoPriority("");
+  }
+
+
   return (
     <>
       <Head>
@@ -49,7 +73,7 @@ const TodoCreate = () => {
             Back
           </Button>
         </Box>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Box w="100%" margin="0 auto">
             <FormControl w="1080px" h="104px" mb="15px">
               <FormLabel htmlFor="title">TITLE</FormLabel>
@@ -57,23 +81,23 @@ const TodoCreate = () => {
                 h="50%"
                 id="title"
                 type="text"
-                value=""
                 placeholder="Text"
+                value={todoTitle}
+                onChange={e => setTodoTitle(e.target.value)}
               />
             </FormControl>
             <FormControl marginBottom="16px">
               <FormLabel htmlFor="description">DETAIL</FormLabel>
-              <Textarea id="description" value="" placeholder="Text" />
+              <Textarea 
+                id="description" 
+                placeholder="Text" 
+                value={todoText}
+                onChange={e => setTodoText(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>PRIORITY</FormLabel>
-              <RadioGroup value="">
-                <HStack spacing="24px">
-                  <Radio value="male">High</Radio>
-                  <Radio value="female">Middle</Radio>
-                  <Radio value="other">Low</Radio>
-                </HStack>
-              </RadioGroup>
+              <RadioButton todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
             </FormControl>
           </Box>
           <Box display="flex" justifyContent="flex-end">
