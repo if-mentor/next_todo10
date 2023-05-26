@@ -1,3 +1,4 @@
+// Delete実装てきてる！
 import React, { useState, useEffect } from 'react'
 import { Heading, Select, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
