@@ -12,13 +12,20 @@ import {
   Container,
 } from "@chakra-ui/react";
 // import Head from 'next/head'
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/libs/firebase";
 import { useEffect, useState } from "react";
 
 const EditTodo = () => {
   const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("編集したいdetail");
+  const [detail, setDetail] = useState("");
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -31,12 +38,24 @@ const EditTodo = () => {
   //↑ドキュメントをfirebaseから取得して入れ込む
   //選択したtodoのidか何かとヒモづける必要がある
 
+  //↓複数のtodosを取ってきて、
+  // ↓その中からidで判断する必要がある？
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const docRef = doc(db, "todos", document);
+  //     const docSnap = await getDoc(docRef);
+  //     setTitle(docSnap.data().title);
+  //     setDetail(docSnap.data().detail);
+  //   };
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
     const fetchData = async () => {
-  const docRef = doc(db, "todos", document);
-  const docSnap = await getDoc(docRef);
-  setTitle(docSnap.data().title);
-  setDetail(docSnap.data().detail)
+      const querySnapshot = await getDocs(collection(db, "todos"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
     };
     fetchData();
   }, []);
