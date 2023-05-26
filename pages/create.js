@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/libs/firebase";
+import { RadioButton } from "@/create.component/radioButton";
 
 import {
   Heading,
@@ -13,20 +14,29 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import { RadioButton } from "@/create.component/radioButton";
 
 const TodoCreate = () => {
   const [todoTitle, setTodoTitle] = useState('') 
   const [todoText, setTodoText] = useState('')
-  const [todoPriority, setTodoPriority] = useState('')
+  const [todoPriority, setTodoPriority] = useState('Low')
   const [todos, setTodos] = useState([])
+  const [todoId, setTodoId] = useState(todos.length + 1)
 
   const handleSubmit = e => {
     e.preventDefault()
-    setTodos({title: todoTitle, detail: todoText, priority: todoPriority})
+    if (todoTitle.trim() ==="") {
+      alert("Titleが入力されていません");
+      return false;
+    }
+    if (todoText.trim() ==="") {
+      alert("Detailが入力されていません");
+      return false;
+    }
+    setTodos({title: todoTitle, detail: todoText, priority: todoPriority, id:todoId})
     addDoc(collection(db, "todos"), {
+      id: todoId,
       title:todoTitle,
-      description: todoText,
+      detail: todoText,
       status: "not Started",
       priority: todoPriority,
       createDate: serverTimestamp(),
@@ -34,7 +44,8 @@ const TodoCreate = () => {
     });
     setTodoTitle("");
     setTodoText("");
-    setTodoPriority("");
+    setTodoPriority("Low");
+    setTodoId(todoId + 1);
   }
 
 
@@ -78,8 +89,8 @@ const TodoCreate = () => {
             <FormControl w="1080px" h="104px" mb="15px">
               <FormLabel htmlFor="title">TITLE</FormLabel>
               <Input
-                h="50%"
                 id="title"
+                h="50%"
                 type="text"
                 placeholder="Text"
                 value={todoTitle}
@@ -89,7 +100,7 @@ const TodoCreate = () => {
             <FormControl marginBottom="16px">
               <FormLabel htmlFor="description">DETAIL</FormLabel>
               <Textarea 
-                id="description" 
+                id="detail" 
                 placeholder="Text" 
                 value={todoText}
                 onChange={e => setTodoText(e.target.value)}
