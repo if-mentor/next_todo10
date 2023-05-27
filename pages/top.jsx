@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { Heading, Select, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { db } from "../firebase/firebase";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 import {
   Table,
   Thead,
@@ -125,6 +127,15 @@ function Top() {
     const newArray = todos.map((todo) => todo.id === targetTodo.id ? {...todo, priority:e.target.value } : todo )
     setTodos(newArray)
   }
+
+  await deleteDoc(doc(db, "cities", "DC"));
+  
+  const cityRef = doc(db, 'cities', 'BJ');
+
+// Remove the 'capital' field from the document
+  await updateDoc(cityRef, {
+    capital: deleteField()
+});
 
   useEffect(() => {
     const filteringTodos = () => {
