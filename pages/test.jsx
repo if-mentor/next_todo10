@@ -1,13 +1,14 @@
 /**
  * top.jsxのコピーページです。
  * 後で消します。
- * 
+ *
  * 追加の場合
  * state（空） -> 入力 -> collection
  *
  * 読み取りの場合
  * collection -> stateに入れる(todos) -> 表示
  * todos -> filter -> 表示
+ * useEffectのタイミングはどこ。。。
  */
 
 import React, { useState, useEffect } from "react";
@@ -81,26 +82,31 @@ const Test = () => {
   const readData = async () => {
     const todoData = collection(db, "todos");
     onSnapshot(todoData, (snapshot) => {
-      //todosが空だと良くないので新しく配列を作る
-      const newTodos = [...todos];
+      const newTodos = [];
       snapshot.docs.map((doc) => {
         const todo = {
-          id: doc.id,
+          //やり方１
+          id: doc.id,//ここでid追加
           title: doc.data().title,
           status: doc.data().status,
           priority: doc.data().priority,
-          createDate: doc.data().createDate,
-          updateDate: doc.data().updateDate,
+          createDate: doc.data().createDate.toDate(),//ここで型変換しちゃう
+          updateDate: doc.data().updateDate.toDate(),
           action: "icons",
+          //やり方2
+          // newTodos.push({...doc.data(), id: doc.id});これだと型変換できない（多分、いや出来るかも）
         };
-        newTodos[todo.id] = todo;
+        newTodos.push({...todo});//配列に入れていく
       });
-      console.log(snapshot.docs.map((doc) => ({ ...doc.data() })));
+      // console.log(snapshot.docs.map((doc) => ({ ...doc.data() })));
+      // console.log(newTodos);
       setTodos(newTodos);
     });
   };
-  //newTodos[todo.id] = todo;idでごまかしてるけど、他に方法はないか
   //Read(ここまで)////////////////////////////
+
+  console.log(todos.map((todo) => todo)); 
+ 
 
   return (
     <>
@@ -135,16 +141,17 @@ const Test = () => {
               <Tr key={todo.id}>
                 <Td fontWeight="bold">{todo.title}</Td>
 
+                {/* status */}
                 <Td>
                   <Select
                     // bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
-                    bg={
-                      status.find((value) => todo.status === value.text)
-                        .backgroundColor
-                    }
-                    color={
-                      status.find((value) => todo.status === value.text).color
-                    }
+                    // bg={
+                    //   status.find((value) => todo.status === value.text)
+                    //     .backgroundColor
+                    // }
+                    // color={
+                    //   status.find((value) => todo.status === value.text).color
+                    // }
                     borderColor="blackAlpha.800"
                     borderRadius="full"
                     value={todo.status}
@@ -159,6 +166,7 @@ const Test = () => {
                   </Select>
                 </Td>
 
+                {/* priority ok */}
                 <Td>
                   <Select
                     borderColor="tomato"
@@ -172,11 +180,11 @@ const Test = () => {
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
-                  {todo.createDate}
+                  {todo.createDate.getHours()}
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
-                  {todo.updateDate}
+                  {/* {todo.updateDate} */}
                 </Td>
 
                 <Td>
