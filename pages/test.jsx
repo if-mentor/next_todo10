@@ -84,8 +84,8 @@ const Test = () => {
     onSnapshot(todoData, (snapshot) => {
       const newTodos = [];
       snapshot.docs.map((doc) => {
+        //やり方１
         const todo = {
-          //やり方１
           id: doc.id,//ここでid追加
           title: doc.data().title,
           status: doc.data().status,
@@ -93,10 +93,10 @@ const Test = () => {
           createDate: doc.data().createDate.toDate(),//ここで型変換しちゃう
           updateDate: doc.data().updateDate.toDate(),
           action: "icons",
-          //やり方2
-          // newTodos.push({...doc.data(), id: doc.id});これだと型変換できない（多分、いや出来るかも）
         };
         newTodos.push({...todo});//配列に入れていく
+        //やり方2
+        // newTodos.push({...doc.data(), id: doc.id});これだと型変換できない（多分、いや出来るかも）
       });
       // console.log(snapshot.docs.map((doc) => ({ ...doc.data() })));
       // console.log(newTodos);
