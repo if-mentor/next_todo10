@@ -180,7 +180,8 @@ const Test = () => {
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
-                  {todo.createDate.getHours()}
+                  {/* 0を表示する */}
+                  {('0' + (todo.createDate.getHours() + 1) ).slice(-2)}
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
