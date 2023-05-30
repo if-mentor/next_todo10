@@ -103,10 +103,8 @@ const Test = () => {
       setTodos(newTodos);
     });
   };
+  // console.log(todos.map((todo) => todo));
   //Read(ここまで)////////////////////////////
-
-  console.log(todos.map((todo) => todo)); 
- 
 
   return (
     <>
@@ -180,12 +178,28 @@ const Test = () => {
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
-                  {/* 0を表示する */}
-                  {('0' + (todo.createDate.getHours() + 1) ).slice(-2)}
+                  {/* コンポーネント化したい */}
+                  {todo.createDate.getFullYear() +
+                    "-" +
+                    todo.createDate.getMonth() +
+                    "-" +
+                    todo.createDate.getDay() +
+                    " " +
+                    ("0" + (todo.createDate.getHours() + 1)).slice(-2) +
+                    ":" +
+                    ("0" + (todo.createDate.getMinutes() + 1)).slice(-2)}
                 </Td>
 
                 <Td textAlign="center" fontWeight="bold">
-                  {/* {todo.updateDate} */}
+                  {todo.updateDate.getFullYear() +
+                    "-" +
+                    todo.updateDate.getMonth() +
+                    "-" +
+                    todo.updateDate.getDay() +
+                    " " +
+                    ("0" + (todo.updateDate.getHours() + 1)).slice(-2) +
+                    ":" +
+                    ("0" + (todo.updateDate.getMinutes() + 1)).slice(-2)}
                 </Td>
 
                 <Td>
