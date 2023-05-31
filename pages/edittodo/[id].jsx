@@ -22,6 +22,7 @@ import { db } from "@/libs/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { DateDisplay } from "../components/DateDisplay";
 
 const EditTodo = () => {
 
@@ -72,51 +73,7 @@ const EditTodo = () => {
     }
   }, [todoId]);
 
-  //firebaseからとってきた日付データ(tipmestanp型)を
-  //2023-5-4:16 みたいな形式に直している
-  useEffect(() => {
-    if (createDate) {
-    const Year = createDate.getFullYear();
-    const Month = createDate.getMonth() + 1;
-    const Day = createDate.getDate();
-    const Hours = createDate.getHours();
-    const Minutes = createDate.getMinutes();
 
-    const dates = Year +
-    "-" +
-    Month +
-    "-" +
-    Day +
-    " " +
-    Hours +
-    ":" +
-    Minutes
-
-    setCreateDateMessage(dates);
-    }
-  }, [createDate]);
-
-  useEffect(() => {
-    if (updateDate) {
-    const Year = updateDate.getFullYear();
-    const Month = updateDate.getMonth() + 1;
-    const Day = updateDate.getDate();
-    const Hours = updateDate.getHours();
-    const Minutes = updateDate.getMinutes();
-
-    const dates = Year +
-    "-" +
-    Month +
-    "-" +
-    Day +
-    " " +
-    Hours +
-    ":" +
-    Minutes
-
-    setUpdateDateMessage(dates);
-    }
-  }, [updateDate]);
 
   //入力した（編集した）titleとdetailを
   //firebaseに送り返すためにeditTodoに上書きする
@@ -226,11 +183,13 @@ const EditTodo = () => {
               <Flex mt={1}>
                 <Flex direction="column" mr={27}>
                   <Text>Create</Text>
-                  <Text fontSize="20px">{createDateMessage}</Text>
+                  <Text fontSize="20px"><DateDisplay date={createDate}/></Text>
                 </Flex>
                 <Flex direction="column">
                   <Text>Update</Text>
-                  <Text fontSize="20px">{updateDateMessage}</Text>
+                  <Text fontSize="20px">
+                  <DateDisplay date={updateDate}/>
+                  </Text>
                 </Flex>
                 <Spacer />
                 <Button
