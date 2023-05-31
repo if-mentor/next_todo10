@@ -3,8 +3,7 @@ import Link from "next/link"
 
 export const TodoHeader = () => {
   return (
-    <Box bg='#68D391' w='100%' p={4} display="flex" h="80px" >
-      {/* ※showpageが高さ指定あるためh=80入力　それと同時にtodoの大きさが下に余白なし */}
+    <Box bg='#68D391' w='100%' p={4} display="flex" >
       <Heading 
         as='h1' 
         size='4xl' 

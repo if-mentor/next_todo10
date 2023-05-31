@@ -1,11 +1,11 @@
-import Head from "next/head";
 import React, { useState } from 'react';
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/libs/firebase";
 import { RadioButton } from "@/create.component/radioButton";
-
+import { TodoHeader } from "@/components/header";
 import {
-  Heading,
   Input,
   Textarea,
   Button,
@@ -14,15 +14,14 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import { TodoHeader } from "@/components/header";
-import Link from "next/link";
 
 const TodoCreate = () => {
   const [todoTitle, setTodoTitle] = useState('') 
   const [todoText, setTodoText] = useState('')
   const [todoPriority, setTodoPriority] = useState('Low')
   const [todos, setTodos] = useState([])
-  // const [todoId, setTodoId] = useState(todos.length + 1)
+
+  const router = useRouter();
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -38,14 +37,11 @@ const TodoCreate = () => {
       title: todoTitle, 
       detail: todoText, 
       priority: todoPriority, 
-      // id:todoId
     })
     addDoc(collection(db, "todos"), {
-      // id: todoId,
       title:todoTitle,
       detail: todoText,
       status: "not started",
-      //s小文字の方にしてみた
       priority: todoPriority,
       createDate: serverTimestamp(),
       updateDate: serverTimestamp() ,
@@ -53,9 +49,9 @@ const TodoCreate = () => {
     setTodoTitle("");
     setTodoText("");
     setTodoPriority("Low");
-    // setTodoId(todoId + 1);
+    router.push('/top')
+    // 同時にページ遷移起こるようにしました
   }
-
 
   return (
     <>
@@ -65,16 +61,8 @@ const TodoCreate = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      {/* <Heading
-        bg="green.300"
-        h="80px"
-        pl="100px"
-        display="flex"
-        alignItems="center"
-      >
-        TODO
-      </Heading> */}
       <TodoHeader />
+      {/* ヘッダー変えてます */}
 
       <Box mr="100px" ml="100px" w="1080px" h="104px">
         <Box pb="15px" h="63" display="flex" justifyContent="space-between">
@@ -89,10 +77,10 @@ const TodoCreate = () => {
             w="112px"
             h="40px"
             mt="23px"
+            onClick={() => router.push('/top')}
+            // トップページに戻るように追加しました
           >
-            <Link href="/top">
               Back
-            </Link>
           </Button>
         </Box>
 
@@ -137,7 +125,6 @@ const TodoCreate = () => {
             >
               CREATE
             </Button>
-            {/* 一緒にページ移動したい formをリンクで囲う×*/}
           </Box>
         </form>
       </Box>
