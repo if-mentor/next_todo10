@@ -14,13 +14,15 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
+import { TodoHeader } from "@/components/header";
+import Link from "next/link";
 
 const TodoCreate = () => {
   const [todoTitle, setTodoTitle] = useState('') 
   const [todoText, setTodoText] = useState('')
   const [todoPriority, setTodoPriority] = useState('Low')
   const [todos, setTodos] = useState([])
-  const [todoId, setTodoId] = useState(todos.length + 1)
+  // const [todoId, setTodoId] = useState(todos.length + 1)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -32,9 +34,14 @@ const TodoCreate = () => {
       alert("Detailが入力されていません");
       return false;
     }
-    setTodos({title: todoTitle, detail: todoText, priority: todoPriority, id:todoId})
+    setTodos({
+      title: todoTitle, 
+      detail: todoText, 
+      priority: todoPriority, 
+      // id:todoId
+    })
     addDoc(collection(db, "todos"), {
-      id: todoId,
+      // id: todoId,
       title:todoTitle,
       detail: todoText,
       status: "not Started",
@@ -45,7 +52,7 @@ const TodoCreate = () => {
     setTodoTitle("");
     setTodoText("");
     setTodoPriority("Low");
-    setTodoId(todoId + 1);
+    // setTodoId(todoId + 1);
   }
 
 
@@ -57,7 +64,7 @@ const TodoCreate = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Heading
+      {/* <Heading
         bg="green.300"
         h="80px"
         pl="100px"
@@ -65,7 +72,8 @@ const TodoCreate = () => {
         alignItems="center"
       >
         TODO
-      </Heading>
+      </Heading> */}
+      <TodoHeader />
 
       <Box mr="100px" ml="100px" w="1080px" h="104px">
         <Box pb="15px" h="63" display="flex" justifyContent="space-between">
@@ -81,9 +89,12 @@ const TodoCreate = () => {
             h="40px"
             mt="23px"
           >
-            Back
+            <Link href="/top">
+              Back
+            </Link>
           </Button>
         </Box>
+
         <form onSubmit={handleSubmit}>
           <Box w="100%" margin="0 auto">
             <FormControl w="1080px" h="104px" mb="15px">
@@ -125,6 +136,7 @@ const TodoCreate = () => {
             >
               CREATE
             </Button>
+            {/* 一緒にページ移動したい formをリンクで囲う×*/}
           </Box>
         </form>
       </Box>
