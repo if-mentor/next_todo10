@@ -44,8 +44,8 @@ const TodoCreate = () => {
       // id: todoId,
       title:todoTitle,
       detail: todoText,
-      status: "not Started",
-      //s小文字の方がよい？
+      status: "not started",
+      //s小文字の方にしてみた
       priority: todoPriority,
       createDate: serverTimestamp(),
       updateDate: serverTimestamp() ,
