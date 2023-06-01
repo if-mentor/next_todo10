@@ -11,8 +11,8 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 
-import { SearchInput } from '@/top.component/searchInput'
-import { ResetButton } from '@/top.component/resetButton'
+import { SearchInput } from '@/topComponent/searchInput'
+import { ResetButton } from '@/topComponent/resetButton'
 // import { status } from '@/config/todo'
 
 function Top() {

@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/libs/firebase";
-import { RadioButton } from "@/create.component/radioButton";
+import { RadioButton } from "@/createComponent/radioButton";
 import { TodoHeader } from "@/components/header";
 import {
   Input,
