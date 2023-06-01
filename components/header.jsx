@@ -21,7 +21,8 @@ export const TodoHeader = () => {
         <Link href="/signup">SignUp</Link>
         <Link href="/top">Top</Link> 
         <Link href="/create">Create</Link>
-        <Link href="/edittodo">Edit</Link>
+        {/* <Link href="/edittodo">Edit</Link> */}
+        {/* kenさんの要望により一旦コメントアウトしています */}
         <Link href="/todoShow">Show</Link>
         <Link href="/sdfglsdrg">404</Link>
       </HStack>
