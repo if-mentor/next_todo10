@@ -283,7 +283,7 @@ function Top() {
                       "-" +
                       (todo.createDate.getMonth() + 1) +
                       "-" +
-                      (todo.createDate.getDate() + 1) +
+                      (todo.createDate.getDate() ) +
                       " " +
                       ("0" + (todo.createDate.getHours())).slice(-2) +
                       ":" +
@@ -295,7 +295,7 @@ function Top() {
                       "-" +
                       (todo.updateDate.getMonth() + 1) +
                       "-" +
-                      (todo.updateDate.getDate() + 1) +
+                      (todo.updateDate.getDate() ) +
                       " " +
                       ("0" + (todo.updateDate.getHours())).slice(-2) +
                       ":" +
