@@ -12,12 +12,7 @@ import {
   Container,
 } from "@chakra-ui/react";
 // import Head from 'next/head'
-import {
-  doc,
-  getDoc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "@/libs/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -25,22 +20,17 @@ import Link from "next/link";
 import { DateDisplay } from "../components/DateDisplay";
 
 const EditTodo = () => {
-
   //?
-    const router = useRouter();
-    const todoId  = router.query.id;
+  const router = useRouter();
+  const todoId = router.query.id;
   // const todoId  = "0P6N4an8xyK5LtLxJ1BH"
 
-
   //選択したtodoのidをURLから取得する
-
 
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [createDate, setCreateDate] = useState("");
-  const [createDateMessage, setCreateDateMessage] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const [updateDateMessage, setUpdateDateMessage] = useState("");
   const [editTodo, setEditTodo] = useState({});
 
   //入力したtitle保持（画面上）
@@ -52,7 +42,6 @@ const EditTodo = () => {
   const handleChangeDetail = (e) => {
     setDetail(e.target.value);
   };
-
 
   //初期状態のtodoのtitleとdetailを
   //firebaseから取得して表示している（非同期処理）
@@ -68,12 +57,10 @@ const EditTodo = () => {
       setCreateDate(docSnap.data().createDate.toDate());
       setUpdateDate(docSnap.data().updateDate.toDate());
     };
-    if(todoId){
+    if (todoId) {
       fetchData();
     }
   }, [todoId]);
-
-
 
   //入力した（編集した）titleとdetailを
   //firebaseに送り返すためにeditTodoに上書きする
@@ -100,14 +87,14 @@ const EditTodo = () => {
       await updateDoc(doc(db, "todos", todoId), {
         title: editTodo.title,
         detail: editTodo.detail,
-        updateDate:serverTimestamp(),
+        updateDate: serverTimestamp(),
       });
       console.log("success");
     } catch (error) {
       console.log("error");
     }
     // topページに戻る
-    router.push('/top')
+    router.push("/top");
   };
 
   return (
@@ -139,15 +126,15 @@ const EditTodo = () => {
             </Heading>
             <Spacer />
             <Link href="/top">
-            <Button
-              w={28}
-              bg="green.300"
-              rounded="full"
-              borderWidth="1px"
-              borderColor="blackAlpha.800"
-            >
-              Back
-            </Button>
+              <Button
+                w={28}
+                bg="green.300"
+                rounded="full"
+                borderWidth="1px"
+                borderColor="blackAlpha.800"
+              >
+                Back
+              </Button>
             </Link>
           </Flex>
           <Box w="100%">
@@ -183,12 +170,16 @@ const EditTodo = () => {
               <Flex mt={1}>
                 <Flex direction="column" mr={27}>
                   <Text>Create</Text>
-                  <Text fontSize="20px"><DateDisplay date={createDate}/></Text>
+                  <Text fontSize="20px">
+                    {/* ↓コンポーネント */}
+                    <DateDisplay date={createDate} />
+                  </Text>
                 </Flex>
                 <Flex direction="column">
                   <Text>Update</Text>
                   <Text fontSize="20px">
-                  <DateDisplay date={updateDate}/>
+                    {/* ↓コンポーネント */}
+                    <DateDisplay date={updateDate} />
                   </Text>
                 </Flex>
                 <Spacer />
