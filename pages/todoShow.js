@@ -34,81 +34,52 @@ import {
 } from "@chakra-ui/react";
 import { ComentCards } from "./components/comentCards";
 import { ModalTodoShow } from "./components/modalTodoShow";
+import { TodoHeader } from "@/components/header";
 
 const todoShow = () => {
   return (
     <>
-      <Grid >
-        {/* header */}
-        <GridItem>
-          <chakra.header
-            position={"absolute"}
-            w={"1280px"}
-            h={"80px"}
-            bg="#68D391"
-          >
+      <Box>
+        
+          <TodoHeader />
+
+        <Box maxW="1080px" margin="0 auto">
+          <Box display='flex' mt='32px' mb='32px' justifyContent="space-between" >
             <Box
-              position={"absolute"}
-              width={"200px"}
-              height={"56px"}
-              left={"99px"}
-              top={"12px"}
-              fontSize={"48px"}
-              lineHeight={"56.25px"}
+              fontSize={"28px"}
+              lineHeight={"32.81px"}
             >
-              TODO
+              SHOW TODO
             </Box>
-          </chakra.header>
-        </GridItem>
+            <Box>
+              {/* Comment Button */}
+              <Button
+                w={"104px"}
+                h={"40px"}
+                color={"#F0FFF4"}
+                borderRadius={"50px"}
+                bg="#25855A"
+                mr="10px"
+              >
+                Comment
+              </Button>
 
-        {/* nav */}
-        <GridItem>
-          {/* title */}
-          <Box
-            position={"absolute"}
-            w={"300px"}
-            h={"33px"}
-            top={"96px"}
-            left={"100px"}
-            fontSize={"28px"}
-            lineHeight={"32.81px"}
-          >
-            SHOW TODO
+              {/* Back Button */}
+              <Button
+                w={"104px"}
+                h={"40px"}
+                borderRadius={"50px"}
+                border={"1px"}
+                bg="#68D391"
+              >
+                Back
+              </Button>
+            </Box>
           </Box>
-
-          {/* Comment Button */}
-          <Button
-            position={"absolute"}
-            w={"104px"}
-            h={"40px"}
-            left={"956px"}
-            top={"104px"}
-            color={"#F0FFF4"}
-            borderRadius={"50px"}
-            bg="#25855A"
-          >
-            Comment
-          </Button>
-
-          {/* Back Button */}
-          <Button
-            position={"absolute"}
-            w={"104px"}
-            h={"40px"}
-            left={"1076px"}
-            top={"104px"}
-            borderRadius={"50px"}
-            border={"1px"}
-            bg="#68D391"
-          >
-            Back
-          </Button>
-        </GridItem>
-
-        {/* Show Table */}
-        <GridItem>
+        
+          <Box display="flex" justifyContent="space-between">
           <VStack
-            position={"absolute"}
+            // position={"absolute"}
             w={"592px"}
             h={"480px"}
             left={"100px"}
@@ -119,7 +90,7 @@ const todoShow = () => {
           >
             {/* TITLE */}
             <Box
-              position={"absolute"}
+              // position={"absolute"}
               w={"560px"}
               h={"61px"}
               left={"16px"}
@@ -133,7 +104,7 @@ const todoShow = () => {
 
             {/* DETAIL */}
             <Box
-              position={"absolute"}
+              // position={"absolute"}
               w={"560px"}
               h={"291px"}
               left={"16px"}
@@ -157,7 +128,7 @@ const todoShow = () => {
 
             {/* FOOTER */}
             <HStack
-              position={"absolute"}
+              // position={"absolute"}
               w={"560px"}
               h={"45px"}
               left={"16px"}
@@ -175,13 +146,13 @@ const todoShow = () => {
               </Box>
             </HStack>
           </VStack>
-        </GridItem>
 
         {/* Comment */}
-        <GridItem>
           <ComentCards />
-        </GridItem>
-      </Grid>
+          </Box>
+        </Box> 
+        
+      </Box>
 
       {/* ここまで */}
     </>
