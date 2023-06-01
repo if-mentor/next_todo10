@@ -43,66 +43,8 @@ function Top() {
     },
   ];
 
-
-
-  //コメントアウトさせていただきます。
   const [todos, setTodos] = useState([]);
-  // const [todos, setTodos] = useState([
-  //   {
-  //     id: 1,
-  //     title: "Github上に静的サイトをホスティングする",
-  //     status: "not started",
-  //     priority: "high",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "ReactでTodoサイトを作成する",
-  //     status: "doing",
-  //     priority: "low",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Firestore Hostingを学習する",
-  //     status: "done",
-  //     priority: "middle",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "感謝の正挙突き",
-  //     status: "doing",
-  //     priority: "high",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "二重の極み",
-  //     status: "doing",
-  //     priority: "high",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "魔封波",
-  //     status: "doing",
-  //     priority: "low",
-  //     createDate: "2020-11-8 18:55",
-  //     updateDate: "2020-11-8 18:55",
-  //     action: "icons",
-  //   },
-  // ]);
+  
 
   const [todoSearchTitle, setTodoSearchTitle] = useState("");
   const [todoId, setTodoId] = useState(todos.length + 1);
@@ -205,6 +147,7 @@ function Top() {
         const todo = {
           id: doc.id,
           title: doc.data().title,
+          detail: doc.data().detail, //追加
           status: doc.data().status,
           priority: doc.data().priority,
           createDate: doc.data().createDate.toDate(),
@@ -217,6 +160,7 @@ function Top() {
     });
   };
   //Read(ここまで)////////////////////////////
+  console.log(todos.map((todo) => todo));
 
   return (
     <div>
@@ -299,7 +243,7 @@ function Top() {
                   <Td>
                     <Select
                       // bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
-                      
+
                       //bg,colorがエラー出すのでコメントアウトしてます。
                       // bg={
                       //   status.find((value) => todo.status === value.text)
@@ -335,29 +279,27 @@ function Top() {
                   </Td>
 
                   <Td textAlign="center" fontWeight="bold">
-                    {/* {todo.createDate}コメントアウトしました */}
                     {todo.createDate.getFullYear() +
                       "-" +
-                      todo.createDate.getMonth() +
+                      (todo.createDate.getMonth() + 1) +
                       "-" +
-                      todo.createDate.getDay() +
+                      (todo.createDate.getDate() + 1) +
                       " " +
-                      ("0" + (todo.createDate.getHours() + 1)).slice(-2) +
+                      ("0" + (todo.createDate.getHours())).slice(-2) +
                       ":" +
-                      ("0" + (todo.createDate.getMinutes() + 1)).slice(-2)}
+                      ("0" + (todo.createDate.getMinutes())).slice(-2)}
                   </Td>
 
                   <Td textAlign="center" fontWeight="bold">
-                    {/* {todo.updateDate}コメントアウトしました */}
                     {todo.updateDate.getFullYear() +
                       "-" +
-                      todo.updateDate.getMonth() +
+                      (todo.updateDate.getMonth() + 1) +
                       "-" +
-                      todo.updateDate.getDay() +
+                      (todo.updateDate.getDate() + 1) +
                       " " +
-                      ("0" + (todo.updateDate.getHours() + 1)).slice(-2) +
+                      ("0" + (todo.updateDate.getHours())).slice(-2) +
                       ":" +
-                      ("0" + (todo.updateDate.getMinutes() + 1)).slice(-2)}
+                      ("0" + (todo.updateDate.getMinutes())).slice(-2)}
                   </Td>
 
                   <Td>
