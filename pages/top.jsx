@@ -16,8 +16,11 @@ import { ResetButton } from "@/top.component/resetButton";
 // import { status } from '@/config/todo'
 
 //新規追加分(Read)
-import { db } from "../libs/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+// import { db } from "../libs/firebase";
+// import { collection, onSnapshot } from "firebase/firestore";
+import Link from "next/link";
+import { useTodo } from "../hooks/useTodo";
+import { DateDisplay } from "./components/DateDisplay";
 
 function Top() {
   const status = [
@@ -43,8 +46,8 @@ function Top() {
     },
   ];
 
-  const [todos, setTodos] = useState([]);
-  
+  // const [todos, setTodos] = useState([]);
+  const { todos, readData } = useTodo();
 
   const [todoSearchTitle, setTodoSearchTitle] = useState("");
   const [todoId, setTodoId] = useState(todos.length + 1);
@@ -139,28 +142,27 @@ function Top() {
     readData();
   }, []);
 
-  const readData = async () => {
-    const todoData = collection(db, "todos");
-    onSnapshot(todoData, (snapshot) => {
-      const newTodos = [];
-      snapshot.docs.map((doc) => {
-        const todo = {
-          id: doc.id,
-          title: doc.data().title,
-          detail: doc.data().detail, //追加
-          status: doc.data().status,
-          priority: doc.data().priority,
-          createDate: doc.data().createDate.toDate(),
-          updateDate: doc.data().updateDate.toDate(),
-          action: "icons",
-        };
-        newTodos.push({ ...todo });
-      });
-      setTodos(newTodos);
-    });
-  };
+  // const readData = async () => {
+  //   const todoData = collection(db, "todos");
+  //   onSnapshot(todoData, (snapshot) => {
+  //     const newTodos = [];
+  //     snapshot.docs.map((doc) => {
+  //       const todo = {
+  //         id: doc.id,
+  //         title: doc.data().title,
+  //         detail: doc.data().detail, //追加
+  //         status: doc.data().status,
+  //         priority: doc.data().priority,
+  //         createDate: doc.data().createDate.toDate(),
+  //         updateDate: doc.data().updateDate.toDate(),
+  //         action: "icons",
+  //       };
+  //       newTodos.push({ ...todo });
+  //     });
+  //     setTodos(newTodos);
+  //   });
+  // };
   //Read(ここまで)////////////////////////////
-  console.log(todos.map((todo) => todo));
 
   return (
     <div>
@@ -279,27 +281,29 @@ function Top() {
                   </Td>
 
                   <Td textAlign="center" fontWeight="bold">
-                    {todo.createDate.getFullYear() +
+                    <DateDisplay date={todo.createDate} />
+                    {/* {todo.createDate.getFullYear() +
                       "-" +
                       (todo.createDate.getMonth() + 1) +
                       "-" +
-                      (todo.createDate.getDate() ) +
+                      todo.createDate.getDate() +
                       " " +
-                      ("0" + (todo.createDate.getHours())).slice(-2) +
+                      ("0" + todo.createDate.getHours()).slice(-2) +
                       ":" +
-                      ("0" + (todo.createDate.getMinutes())).slice(-2)}
+                      ("0" + todo.createDate.getMinutes()).slice(-2)} */}
                   </Td>
 
                   <Td textAlign="center" fontWeight="bold">
-                    {todo.updateDate.getFullYear() +
+                    <DateDisplay date={todo.updateDate} />
+                    {/* {todo.updateDate.getFullYear() +
                       "-" +
                       (todo.updateDate.getMonth() + 1) +
                       "-" +
-                      (todo.updateDate.getDate() ) +
+                      todo.updateDate.getDate() +
                       " " +
-                      ("0" + (todo.updateDate.getHours())).slice(-2) +
+                      ("0" + todo.updateDate.getHours()).slice(-2) +
                       ":" +
-                      ("0" + (todo.updateDate.getMinutes())).slice(-2)}
+                      ("0" + todo.updateDate.getMinutes()).slice(-2)} */}
                   </Td>
 
                   <Td>
@@ -310,6 +314,10 @@ function Top() {
                         onClick={() => handleOpenEditPage(todo)}
                       >
                         <EditIcon />
+                        {/* たぶんこんな感じ */}
+                        {/* <Link href={{pathname: `/edittodo/[id]`}}>
+                          <EditIcon />
+                        </Link> */}
                       </button>
                       <button onClick={() => handleDeleteTodo(todo)} ml={5}>
                         <DeleteIcon />
