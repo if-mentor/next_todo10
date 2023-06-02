@@ -1,5 +1,5 @@
 .commentFrame {
-  position: absolute;
+  /* position: absolute; */
   width: 472px;
   height: 104px;
   border: 1px solid #000000CC;
@@ -15,9 +15,7 @@
 }
 
 .commentContent {
-    position: absolute;
     width: 95px;
     height: 19px;
-    top: 4px;
     color: #F0FFF4;
 }
