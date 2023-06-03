@@ -19,7 +19,7 @@ const Login = () => {
     });
   const { email, password } = formData;
 
-  const onChange = (e) => {
+  const onChangeFormData = (e) => {
     setFormData({
     ...formData,
     [e.target.id]: e.target.value,
@@ -28,7 +28,11 @@ const Login = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (e) => {
+  //エラー時のバリデーション
+  const [error, setError] = useState('');
+
+
+  const onSubmitFormData = async (e) => {
     e.preventDefault();
     try {
     const userCredential = await signInWithEmailAndPassword(
@@ -39,9 +43,25 @@ const Login = () => {
     if (userCredential.user) {
       router.push("/top")
     }
-    } catch (error) {
+    } 
       //エラー時にはポップアップかバリデーションエラーを適用したい
-    console.log(error);
+    // console.log(error);
+    catch (error){
+      //エラーのメッセージの表示
+      switch (error.code) {
+        case 'auth/invalid-email':
+          setError('正しいメールアドレスの形式で入力してください。');
+          break;
+        case 'auth/user-not-found':
+          setError('メールアドレスかパスワードに誤りがあります。');
+          break;
+        case 'auth/wrong-password':
+          setError('メールアドレスかパスワードに誤りがあります。');
+          break;
+        default:
+          setError('メールアドレスかパスワードに誤りがあります。');
+          break;
+      }
     }
   };
   
@@ -72,7 +92,7 @@ const Login = () => {
                 id="email"
                 value={email}
                 required
-                onChange={(e)=>onChange(e)}
+                onChange={(e)=>onChangeFormData(e)}
                 bg={"green.50"} borderRadius={"40px"}
               />
             </Box>
@@ -85,13 +105,14 @@ const Login = () => {
                 id="password"
                 value={password}
                 required
-                onChange={(e)=>onChange(e)}
+                onChange={(e)=>onChangeFormData(e)}
                 bg={"green.50"} borderRadius={"40px"}
               />
             </Box>
 
             <Box textAlign={"center"}>
-              <Button onClick={(e)=>onSubmit(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              <Button onClick={(e)=>onSubmitFormData(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 LOGIN
               </Button>
             </Box>

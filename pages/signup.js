@@ -15,6 +15,8 @@ import {
   import { auth } from "../libs/firebase";
 
 
+
+
 const  Signup = () => {
   //入力したデータをまとめる
   const [formData,setFormData] = useState({
@@ -23,7 +25,10 @@ const  Signup = () => {
   });
   const { email, password } = formData;
 
-  const onChange = (e) => {
+  //エラー時のバリデーション
+  const [error, setError] = useState('');
+
+  const onChangeFormData = (e) => {
     setFormData({
     ...formData,
     [e.target.id]: e.target.value,
@@ -33,7 +38,7 @@ const  Signup = () => {
   //ページ遷移させるためにuseRouterを定義
   const router = useRouter();
 
-  const onSubmit = async (e) => {
+  const onSubmitFormData = async (e) => {
     //コンソールで機能してるかを確認
     // console.log("Signup OK!")
     e.preventDefault();
@@ -48,9 +53,25 @@ const  Signup = () => {
     );
     //topにページ遷移する
       router.push("/top")
-    } catch (error) {
-      //エラー時にはポップアップかバリデーションエラーを適用したい
-    console.log(error);
+     } catch (error){
+        //エラーのメッセージの表示
+        console.log(error);
+        switch (error.code) {
+          case "auth/network-request-failed":
+          setError("通信がエラーになったのか、またはタイムアウトになりました。通信環境がいい所で再度やり直してください。");
+          break;
+          case "auth/weak-password":  //バリデーションでいかないようにするので、基本的にはこのコードはこない
+          setError("パスワードが短すぎます。6文字以上を入力してください。");
+           break;
+          case "auth/invalid-email":  //バリデーションでいかないようにするので、基本的にはこのコードはこない
+          setError("メールアドレスが正しくありません");
+          break;
+          case "auth/email-already-in-use":
+          setError("メールアドレスがすでに使用されています。ログインするか別のメールアドレスで作成してください");
+          break;
+          default:  //想定外
+          setError("アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。");
+        }
     }
   };
   
@@ -82,7 +103,7 @@ const  Signup = () => {
                 id="email"
                 value={email}
                 required
-                onChange={(e)=>onChange(e)}
+                onChange={(e)=>onChangeFormData(e)}
                 bg={"green.50"} borderRadius={"40px"} />
             </Box>
 
@@ -94,12 +115,13 @@ const  Signup = () => {
                 id="password"
                 value={password}
                 required
-                onChange={(e)=>onChange(e)}
+                onChange={(e)=>onChangeFormData(e)}
                 bg={"green.50"} borderRadius={"40px"}/>
             </Box>
 
             <Box textAlign={"center"}>
-              <Button onClick={(e)=>onSubmit(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              <Button onClick={(e)=>onSubmitFormData(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 SIGN UP
               </Button>
             </Box>
