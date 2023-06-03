@@ -16,8 +16,6 @@ import { ResetButton } from "@/top.component/resetButton";
 // import { status } from '@/config/todo'
 
 //新規追加分(Read)
-// import { db } from "../libs/firebase";
-// import { collection, onSnapshot } from "firebase/firestore";
 import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "./components/DateDisplay";
@@ -142,26 +140,6 @@ function Top() {
     readData();
   }, []);
 
-  // const readData = async () => {
-  //   const todoData = collection(db, "todos");
-  //   onSnapshot(todoData, (snapshot) => {
-  //     const newTodos = [];
-  //     snapshot.docs.map((doc) => {
-  //       const todo = {
-  //         id: doc.id,
-  //         title: doc.data().title,
-  //         detail: doc.data().detail, //追加
-  //         status: doc.data().status,
-  //         priority: doc.data().priority,
-  //         createDate: doc.data().createDate.toDate(),
-  //         updateDate: doc.data().updateDate.toDate(),
-  //         action: "icons",
-  //       };
-  //       newTodos.push({ ...todo });
-  //     });
-  //     setTodos(newTodos);
-  //   });
-  // };
   //Read(ここまで)////////////////////////////
 
   return (
@@ -243,29 +221,29 @@ function Top() {
                   <Td fontWeight="bold">{todo.title}</Td>
 
                   <Td>
-                    <Select
-                      // bg={status.map((value) => todo.status === value.text && value.backgroundColor)}
-
-                      //bg,colorがエラー出すのでコメントアウトしてます。
-                      // bg={
-                      //   status.find((value) => todo.status === value.text)
-                      //     .backgroundColor
-                      // }
-                      // color={
-                      //   status.find((value) => todo.status === value.text).color
-                      // }
-                      borderColor="blackAlpha.800"
-                      borderRadius="full"
-                      value={todo.status}
-                      onChange={(e) => handleStatusChange(todo, e)}
-                      fontWeight="bold"
-                    >
-                      {status.map((value, index) => (
-                        <option key={index} value={value.text}>
-                          {value.word}
-                        </option>
-                      ))}
-                    </Select>
+                      <Select
+                      //?はオプショナルチェーン演算子
+                        bg={
+                          status.find((value) => todo.status === value.text)?.backgroundColor
+                        }
+                        color={
+                          status.find((value) => todo.status === value.text)?.color
+                        }
+                        borderColor="blackAlpha.800"
+                        borderRadius="full"
+                        value={todo.status}
+                        onChange={(e) => handleStatusChange(todo, e)}
+                        fontWeight="bold"
+                      >
+                        {status.map((value) => (
+                          <option
+                            key={value.text}
+                            value={value.text}
+                          >
+                            {value.word}
+                          </option>
+                        ))}
+                      </Select>
                   </Td>
 
                   <Td>
@@ -282,28 +260,10 @@ function Top() {
 
                   <Td textAlign="center" fontWeight="bold">
                     <DateDisplay date={todo.createDate} />
-                    {/* {todo.createDate.getFullYear() +
-                      "-" +
-                      (todo.createDate.getMonth() + 1) +
-                      "-" +
-                      todo.createDate.getDate() +
-                      " " +
-                      ("0" + todo.createDate.getHours()).slice(-2) +
-                      ":" +
-                      ("0" + todo.createDate.getMinutes()).slice(-2)} */}
                   </Td>
 
                   <Td textAlign="center" fontWeight="bold">
                     <DateDisplay date={todo.updateDate} />
-                    {/* {todo.updateDate.getFullYear() +
-                      "-" +
-                      (todo.updateDate.getMonth() + 1) +
-                      "-" +
-                      todo.updateDate.getDate() +
-                      " " +
-                      ("0" + todo.updateDate.getHours()).slice(-2) +
-                      ":" +
-                      ("0" + todo.updateDate.getMinutes()).slice(-2)} */}
                   </Td>
 
                   <Td>
