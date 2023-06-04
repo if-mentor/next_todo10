@@ -43,9 +43,8 @@ const Login = () => {
     if (userCredential.user) {
       router.push("/top")
     }
-    } 
-      //エラー時にはポップアップかバリデーションエラーを適用したい
-    // console.log(error);
+    }
+
     catch (error){
       //エラーのメッセージの表示
       switch (error.code) {
@@ -111,6 +110,7 @@ const Login = () => {
             </Box>
 
             <Box textAlign={"center"}>
+              {/* エラー時のメッセージ */}
               {error && <p style={{ color: 'red' }}>{error}</p>}
               <Button onClick={(e)=>onSubmitFormData(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 LOGIN

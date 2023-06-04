@@ -12,7 +12,6 @@ export const LogoutButton = () => {
         auth.signOut();
       router.push("/login")
     };
-    
 
     return (
         <>

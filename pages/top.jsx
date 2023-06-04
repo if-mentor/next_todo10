@@ -15,6 +15,8 @@ import { SearchInput } from '@/topComponent/searchInput'
 import { ResetButton } from '@/topComponent/resetButton'
 // import { status } from '@/config/todo'
 
+import { LogoutButton } from "../pages/components/logoutButton"
+
 function Top() {
 
   const status = [
@@ -172,12 +174,13 @@ function Top() {
     <div>
       <Box bg='#68D391' w='100%' p={4}>
         <Heading as='h1' size='4xl' maxW='1080px' m="0 auto">TODO</Heading>
+        <Spacer />
+        <LogoutButton />
       </Box>
 
       <Box maxW='1080px' m='0 auto'>
         <Heading as='h2' size='2xl' mt="2">TODO LIST</Heading>
         <Box display='flex' mt='32px' mb='32px'>
-          
           <Box>
             <p>SEARCH</p>
             <SearchInput todoSearchTitle={todoSearchTitle} setTodoSearchTitle={setTodoSearchTitle} />

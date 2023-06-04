@@ -15,8 +15,6 @@ import {
   import { auth } from "../libs/firebase";
 
 
-
-
 const  Signup = () => {
   //入力したデータをまとめる
   const [formData,setFormData] = useState({
@@ -39,8 +37,6 @@ const  Signup = () => {
   const router = useRouter();
 
   const onSubmitFormData = async (e) => {
-    //コンソールで機能してるかを確認
-    // console.log("Signup OK!")
     e.preventDefault();
     try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -60,16 +56,16 @@ const  Signup = () => {
           case "auth/network-request-failed":
           setError("通信がエラーになったのか、またはタイムアウトになりました。通信環境がいい所で再度やり直してください。");
           break;
-          case "auth/weak-password":  //バリデーションでいかないようにするので、基本的にはこのコードはこない
+          case "auth/weak-password":
           setError("パスワードが短すぎます。6文字以上を入力してください。");
            break;
-          case "auth/invalid-email":  //バリデーションでいかないようにするので、基本的にはこのコードはこない
+          case "auth/invalid-email":
           setError("メールアドレスが正しくありません");
           break;
           case "auth/email-already-in-use":
           setError("メールアドレスがすでに使用されています。ログインするか別のメールアドレスで作成してください");
           break;
-          default:  //想定外
+          default:
           setError("アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。");
         }
     }
