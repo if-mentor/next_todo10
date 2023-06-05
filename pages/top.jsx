@@ -15,7 +15,8 @@ import { SearchInput } from '@/topComponent/searchInput'
 import { ResetButton } from '@/topComponent/resetButton'
 // import { status } from '@/config/todo'
 
-import { LogoutButton } from "../pages/components/logoutButton"
+import { LogoutButton } from '@/authComponent/logoutButton'
+
 
 function Top() {
 
