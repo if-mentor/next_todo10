@@ -18,7 +18,7 @@ import { ResetButton } from "@/top.component/resetButton";
 //新規追加分(Read)
 import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
-import { DateDisplay } from "./components/DateDisplay";
+import { DateDisplay } from "../components/DateDisplay";
 
 function Top() {
   const status = [
@@ -221,29 +221,28 @@ function Top() {
                   <Td fontWeight="bold">{todo.title}</Td>
 
                   <Td>
-                      <Select
+                    <Select
                       //?はオプショナルチェーン演算子
-                        bg={
-                          status.find((value) => todo.status === value.text)?.backgroundColor
-                        }
-                        color={
-                          status.find((value) => todo.status === value.text)?.color
-                        }
-                        borderColor="blackAlpha.800"
-                        borderRadius="full"
-                        value={todo.status}
-                        onChange={(e) => handleStatusChange(todo, e)}
-                        fontWeight="bold"
-                      >
-                        {status.map((value) => (
-                          <option
-                            key={value.text}
-                            value={value.text}
-                          >
-                            {value.word}
-                          </option>
-                        ))}
-                      </Select>
+                      bg={
+                        status.find((value) => todo.status === value.text)
+                          ?.backgroundColor
+                      }
+                      color={
+                        status.find((value) => todo.status === value.text)
+                          ?.color
+                      }
+                      borderColor="blackAlpha.800"
+                      borderRadius="full"
+                      value={todo.status}
+                      onChange={(e) => handleStatusChange(todo, e)}
+                      fontWeight="bold"
+                    >
+                      {status.map((value) => (
+                        <option key={value.text} value={value.text}>
+                          {value.word}
+                        </option>
+                      ))}
+                    </Select>
                   </Td>
 
                   <Td>

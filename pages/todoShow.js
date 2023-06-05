@@ -32,13 +32,13 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import { ComentCards } from "./components/comentCards";
-import { ModalTodoShow } from "./components/modalTodoShow";
+import { ComentCards } from "../components/comentCards";
+import { ModalTodoShow } from "../components/modalTodoShow";
 
 const todoShow = () => {
   return (
     <>
-      <Grid >
+      <Grid>
         {/* header */}
         <GridItem>
           <chakra.header
