@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Test from './Test';
 
 const Home = () => {
   return (
