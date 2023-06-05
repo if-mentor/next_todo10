@@ -29,5 +29,5 @@ export const useTodo = () => {
   };
   console.log(todos.map((todo) => todo));
   //Read(ここまで)////////////////////////////
-  return { todos, readData };
+  return { todos, setTodos, readData };
 };

@@ -45,7 +45,7 @@ function Top() {
   ];
 
   // const [todos, setTodos] = useState([]);
-  const { todos, readData } = useTodo();
+  const { todos, setTodos, readData } = useTodo();
 
   const [todoSearchTitle, setTodoSearchTitle] = useState("");
   const [todoId, setTodoId] = useState(todos.length + 1);
