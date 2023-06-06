@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Top from './Top';
 
 const Home = () => {
   return (
@@ -13,7 +12,7 @@ const Home = () => {
       <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <h1>Hello, Next.js HELLO!!</h1>
       </div>
-      {/* <Top /> */}
+      
     </>
   );
 }
