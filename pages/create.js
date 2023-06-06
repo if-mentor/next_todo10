@@ -1,6 +1,11 @@
+import React, { useState } from 'react';
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/libs/firebase";
+import { RadioButton } from "@/createComponent/radioButton";
+import { TodoHeader } from "@/components/header";
 import {
-  Heading,
   Input,
   Textarea,
   Button,
@@ -8,12 +13,46 @@ import {
   FormLabel,
   Box,
   Text,
-  HStack,
-  Radio,
-  RadioGroup,
 } from "@chakra-ui/react";
 
 const TodoCreate = () => {
+  const [todoTitle, setTodoTitle] = useState('') 
+  const [todoText, setTodoText] = useState('')
+  const [todoPriority, setTodoPriority] = useState('Low')
+  const [todos, setTodos] = useState([])
+
+  const router = useRouter();
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (todoTitle.trim() ==="") {
+      alert("Titleが入力されていません");
+      return false;
+    }
+    if (todoText.trim() ==="") {
+      alert("Detailが入力されていません");
+      return false;
+    }
+    setTodos({
+      title: todoTitle, 
+      detail: todoText, 
+      priority: todoPriority, 
+    })
+    addDoc(collection(db, "todos"), {
+      title:todoTitle,
+      detail: todoText,
+      status: "not started",
+      priority: todoPriority,
+      createDate: serverTimestamp(),
+      updateDate: serverTimestamp() ,
+    });
+    setTodoTitle("");
+    setTodoText("");
+    setTodoPriority("Low");
+    router.push('/top')
+    // 同時にページ遷移起こるようにしました
+  }
+
   return (
     <>
       <Head>
@@ -22,15 +61,8 @@ const TodoCreate = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Heading
-        bg="green.300"
-        h="80px"
-        pl="100px"
-        display="flex"
-        alignItems="center"
-      >
-        TODO
-      </Heading>
+      <TodoHeader />
+      {/* ヘッダー変えてます */}
 
       <Box mr="100px" ml="100px" w="1080px" h="104px">
         <Box pb="15px" h="63" display="flex" justifyContent="space-between">
@@ -45,35 +77,38 @@ const TodoCreate = () => {
             w="112px"
             h="40px"
             mt="23px"
+            onClick={() => router.push('/top')}
+            // トップページに戻るように追加しました
           >
-            Back
+              Back
           </Button>
         </Box>
-        <form>
+
+        <form onSubmit={handleSubmit}>
           <Box w="100%" margin="0 auto">
             <FormControl w="1080px" h="104px" mb="15px">
               <FormLabel htmlFor="title">TITLE</FormLabel>
               <Input
-                h="50%"
                 id="title"
+                h="50%"
                 type="text"
-                value=""
                 placeholder="Text"
+                value={todoTitle}
+                onChange={e => setTodoTitle(e.target.value)}
               />
             </FormControl>
             <FormControl marginBottom="16px">
               <FormLabel htmlFor="description">DETAIL</FormLabel>
-              <Textarea id="description" value="" placeholder="Text" />
+              <Textarea 
+                id="detail" 
+                placeholder="Text" 
+                value={todoText}
+                onChange={e => setTodoText(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>PRIORITY</FormLabel>
-              <RadioGroup value="">
-                <HStack spacing="24px">
-                  <Radio value="male">High</Radio>
-                  <Radio value="female">Middle</Radio>
-                  <Radio value="other">Low</Radio>
-                </HStack>
-              </RadioGroup>
+              <RadioButton todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
             </FormControl>
           </Box>
           <Box display="flex" justifyContent="flex-end">
