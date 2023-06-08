@@ -11,14 +11,15 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-import { SearchInput } from '@/components/searchInput'
-import { ResetButton } from '@/components/resetButton'
+import { SearchInput } from "../topComponent/searchInput";
+import { ResetButton } from "../topComponent/resetButton";
 // import { status } from '@/config/todo'
 
 //新規追加分(Read)
 import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
+import { TodoHeader } from "@/components/header";
 
 function Top() {
   const status = [
@@ -167,11 +168,7 @@ function Top() {
 
   return (
     <div>
-      <Box bg="#68D391" w="100%" p={4}>
-        <Heading as="h1" size="4xl" maxW="1080px" m="0 auto">
-          TODO
-        </Heading>
-      </Box>
+      <TodoHeader />
 
       <Box maxW="1080px" m="0 auto">
         <Heading as="h2" size="2xl" mt="2">
@@ -296,11 +293,10 @@ function Top() {
                         ml="150px"
                         onClick={() => handleOpenEditPage(todo)}
                       >
-                        <EditIcon />
                         {/* たぶんこんな感じ */}
-                        {/* <Link href={{pathname: `/edittodo/[id]`}}>
+                        <Link as={`/edittodo/${todo.id}`} href={{pathname: `/edittodo/[id]`}}>
                           <EditIcon />
-                        </Link> */}
+                        </Link>
                       </button>
                       <button onClick={() => handleDeleteTodo(todo)} ml={5}>
                         <DeleteIcon />

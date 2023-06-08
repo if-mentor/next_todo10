@@ -1,10 +1,8 @@
-import { Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export function DateDisplay({ date }) {
   const [dateMessage, setDateMessage] = useState("");
 
-  //ケンさんのパクリ実装です
   useEffect(() => {
     if (date) {
       const Year = date.getFullYear();

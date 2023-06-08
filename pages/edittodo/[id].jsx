@@ -17,7 +17,7 @@ import { db } from "@/libs/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { DateDisplay } from "../components/DateDisplay";
+import { DateDisplay } from "../../components/DateDisplay";
 
 const EditTodo = () => {
   //?

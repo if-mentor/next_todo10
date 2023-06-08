@@ -4,7 +4,7 @@ mapで処理したい
 */
 
 import { VStack, Box, HStack } from "@chakra-ui/react";
-import * as styles from "../../styles/comentCards.module.css";
+import * as styles from "../styles/comentCards.module.css";
 
 export const ComentCards = () => {
   return (
