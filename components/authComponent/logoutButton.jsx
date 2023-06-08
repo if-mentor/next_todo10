@@ -8,9 +8,15 @@ import { auth } from "/libs/firebase";
 export const LogoutButton = () => {
     const router = useRouter();
 
-    const onLogout = () => {
-        auth.signOut();
-      router.push("/login")
+    const onLogout = async() => {
+        try {
+            await auth.signOut();
+            router.push("/login");
+        } catch (error) {
+            alert("サインアウトに失敗しました。");
+        }
+    //     auth.signOut();
+    //   router.push("/login")
     };
 
     return (

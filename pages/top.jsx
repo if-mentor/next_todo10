@@ -14,8 +14,7 @@ import {
 import { SearchInput } from '@/topComponent/searchInput'
 import { ResetButton } from '@/topComponent/resetButton'
 // import { status } from '@/config/todo'
-
-import { LogoutButton } from '@/authComponent/logoutButton'
+import { TodoHeader } from '@/components/header'
 
 
 function Top() {
@@ -173,11 +172,13 @@ function Top() {
 
   return (
     <div>
-      <Box bg='#68D391' w='100%' p={4}>
+      <TodoHeader />
+      {/* 以下コンポーネント化前のheader。最終的な実装前に削除する */}
+      {/* <Box bg='#68D391' w='100%' p={4}>
         <Heading as='h1' size='4xl' maxW='1080px' m="0 auto">TODO</Heading>
         <Spacer />
         <LogoutButton />
-      </Box>
+      </Box> */}
 
       <Box maxW='1080px' m='0 auto'>
         <Heading as='h2' size='2xl' mt="2">TODO LIST</Heading>
