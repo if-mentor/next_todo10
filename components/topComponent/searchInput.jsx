@@ -13,7 +13,6 @@ export const SearchInput=(props) => {
 
   return (
     <InputGroup size='md' 
-      onSubmit={() => {}}
     >
       <Input
         pr='4.5rem'
