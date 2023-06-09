@@ -22,33 +22,25 @@ locator js
 主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
 
 */
-import {
-  Box,
-  Button,
-  chakra,
-  HStack,
-  VStack,
-  Spacer,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
-import { ComentCards } from "./components/comentCards";
-import { ModalTodoShow } from "./components/modalTodoShow";
+import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
+import { ComentCards } from "../components/comentCards";
+import { ModalTodoShow } from "../components/modalTodoShow";
 import { TodoHeader } from "@/components/header";
 
 const todoShow = () => {
   return (
     <>
       <Box>
-        
-          <TodoHeader />
+        <TodoHeader />
 
         <Box maxW="1080px" margin="0 auto">
-          <Box display='flex' mt='32px' mb='32px' justifyContent="space-between" >
-            <Box
-              fontSize={"28px"}
-              lineHeight={"32.81px"}
-            >
+          <Box
+            display="flex"
+            mt="32px"
+            mb="32px"
+            justifyContent="space-between"
+          >
+            <Box fontSize={"28px"} lineHeight={"32.81px"}>
               SHOW TODO
             </Box>
             <Box>
@@ -76,82 +68,81 @@ const todoShow = () => {
               </Button>
             </Box>
           </Box>
-        
+
           <Box display="flex" justifyContent="space-between">
-          <VStack
-            // position={"absolute"}
-            w={"592px"}
-            h={"480px"}
-            left={"100px"}
-            top={"144px"}
-            borderRadius={"10px"}
-            border={"1px"}
-            borderColor={"blackAlpha.800"}
-          >
-            {/* TITLE */}
-            <Box
+            <VStack
               // position={"absolute"}
-              w={"560px"}
-              h={"61px"}
-              left={"16px"}
-              top={"16px"}
+              w={"592px"}
+              h={"480px"}
+              left={"100px"}
+              top={"144px"}
+              borderRadius={"10px"}
+              border={"1px"}
+              borderColor={"blackAlpha.800"}
             >
-              <Box bgColor={"green.300"}>
-                <Box>TITLE</Box>
+              {/* TITLE */}
+              <Box
+                // position={"absolute"}
+                w={"560px"}
+                h={"61px"}
+                left={"16px"}
+                top={"16px"}
+              >
+                <Box bgColor={"green.300"}>
+                  <Box>TITLE</Box>
+                </Box>
+                <Box>Github上に静的サイトをホスティングする</Box>
               </Box>
-              <Box>Github上に静的サイトをホスティングする</Box>
-            </Box>
 
-            {/* DETAIL */}
-            <Box
-              // position={"absolute"}
-              w={"560px"}
-              h={"291px"}
-              left={"16px"}
-              top={"93px"}
-            >
-              <Box bgColor={"green.300"}>
-                <Box>DETAIL</Box>
+              {/* DETAIL */}
+              <Box
+                // position={"absolute"}
+                w={"560px"}
+                h={"291px"}
+                left={"16px"}
+                top={"93px"}
+              >
+                <Box bgColor={"green.300"}>
+                  <Box>DETAIL</Box>
+                </Box>
+                <Box>
+                  AWS コンソールで AWS Amplify
+                  を使って静的ウェブサイトをホスティングします。AWS Amplify
+                  は、静的ウェブサイトおよびウェブアプリにフルマネージドのホスティングを提供します。Amplify
+                  のホスティングソリューションは、Amazon CloudFront と Amazon S3
+                  を使って、AWS コンテンツ配信ネットワーク (CDN)
+                  を介してサイトアセットを提供します。
+                  継続的デプロイをセットアップします。Amplify
+                  は、継続的デプロイで Git
+                  ベースのワークフローを提供します。それにより、コードコミットごとに、サイトに自動的に更新をデプロイすることができます。
+                </Box>
               </Box>
-              <Box>
-                AWS コンソールで AWS Amplify
-                を使って静的ウェブサイトをホスティングします。AWS Amplify
-                は、静的ウェブサイトおよびウェブアプリにフルマネージドのホスティングを提供します。Amplify
-                のホスティングソリューションは、Amazon CloudFront と Amazon S3
-                を使って、AWS コンテンツ配信ネットワーク (CDN)
-                を介してサイトアセットを提供します。
-                継続的デプロイをセットアップします。Amplify は、継続的デプロイで
-                Git
-                ベースのワークフローを提供します。それにより、コードコミットごとに、サイトに自動的に更新をデプロイすることができます。
-              </Box>
-            </Box>
 
-            {/* FOOTER */}
-            <HStack
-              // position={"absolute"}
-              w={"560px"}
-              h={"45px"}
-              left={"16px"}
-              top={"400px"}
-            >
-              <ModalTodoShow />
-              <Spacer />
-              <Box>
-                <Box>Create</Box>
-                <Box> 2020-11-8 18:55</Box>
-              </Box>
-              <Box>
-                <Box>Update</Box>
-                <Box> 2020-11-8 18:55</Box>
-              </Box>
-            </HStack>
-          </VStack>
+              {/* FOOTER */}
+              <HStack
+                // position={"absolute"}
+                w={"560px"}
+                h={"45px"}
+                left={"16px"}
+                top={"400px"}
+              >
+                <ModalTodoShow />
+                <Spacer />
+                <Box>
+                  <Box>Create</Box>
+                  <Box> 2020-11-8 18:55</Box>
+                </Box>
+                <Box>
+                  <Box>Update</Box>
+                  <Box> 2020-11-8 18:55</Box>
+                </Box>
+              </HStack>
+            </VStack>
 
-        {/* Comment */}
-          <ComentCards />
+            {/* Comment */}
+            <ComentCards />
           </Box>
-        </Box> 
-        
+        </Box>
       </Box>
 
       {/* ここまで */}
