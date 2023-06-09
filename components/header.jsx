@@ -1,6 +1,9 @@
 import { Box, HStack, Heading, Spacer } from "@chakra-ui/react"
 import Link from "next/link"
 
+import { LogoutButton } from '@/components/authComponent/logoutButton'
+
+
 export const TodoHeader = () => {
   return (
     <Box bg='#68D391' w='100%' p={4} display="flex" >
@@ -27,6 +30,10 @@ export const TodoHeader = () => {
         <Link href="/sdfglsdrg">404</Link>
       </HStack>
       {/* 最終実装時削除 */}
+
+      {/* 0608LogoutButton実装しました */}
+      <LogoutButton />
+
     </Box>
   )
 }
