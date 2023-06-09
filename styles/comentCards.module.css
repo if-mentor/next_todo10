@@ -2,7 +2,7 @@
   /* position: absolute; */
   width: 472px;
   height: 104px;
-  border: 1px solid #000000CC;
+  border: 1px solid #000000cc;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -10,12 +10,12 @@
 .commentTopFrame {
   width: 472px;
   height: 28px;
-  border: 1px solid #000000CC;
+  border: 1px solid #000000cc;
   background-color: #25855a;
 }
 
 .commentContent {
-    width: 95px;
-    height: 19px;
-    color: #F0FFF4;
+  width: 50%;
+  height: 19px;
+  color: #f0fff4;
 }
