@@ -11,8 +11,8 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-import { SearchInput } from "../topComponent/searchInput";
-import { ResetButton } from "../topComponent/resetButton";
+import { SearchInput } from "../components/topComponent/searchInput";
+import { ResetButton } from "../components/topComponent/resetButton";
 // import { status } from '@/config/todo'
 
 //新規追加分(Read)

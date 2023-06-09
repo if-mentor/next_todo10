@@ -1,5 +1,5 @@
 import { HStack, Radio, RadioGroup } from "@chakra-ui/react";
-import "../pages/create"
+import "../../pages/create"
 
 export const RadioButton = (props) => {
 
