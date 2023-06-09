@@ -1,7 +1,7 @@
 import { SearchIcon } from '@chakra-ui/icons'
 import {IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import { useEffect} from 'react'
-import "../pages/top"
+import "../../pages/top"
 
 export const SearchInput=(props) => {
 
