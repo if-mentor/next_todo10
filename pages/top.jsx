@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 
 import { SearchInput } from "../topComponent/searchInput";
 import { ResetButton } from "../topComponent/resetButton";
-// import { status } from '@/config/todo'
 
 //新規追加分(Read)
-import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
 import { TodoHeader } from "@/components/header";
@@ -59,13 +48,6 @@ function Top() {
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filteredTodos2, setFilteredTodos2] = useState([]);
-
-  // const handleEditTodo = () => {
-  //   const newArray = todos.map((todo) =>
-  //   todo.id === editId? {...todo, title:newTitle} : todo)setTodos(newArray)
-  //   setNewTitle('')
-  //   setEditId('')
-  // }
 
   const handleStatusChange = (targetTodo, e) => {
     const newArray = todos.map((todo) =>
@@ -121,10 +103,6 @@ function Top() {
     };
     filteringTodos2();
   }, [filter2, todos]);
-
-  // const handleSearchFormChanges = (e) => {
-  //   setTodoSearchTitle(e.target.value)
-  // }
 
   //Read(ここから)///////////////////////////
   useEffect(() => {
@@ -266,6 +244,6 @@ function Top() {
       </Box>
     </div>
   );
-}
+};
 
 export default Top;
