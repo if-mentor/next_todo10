@@ -23,6 +23,8 @@ const EditTodo = () => {
   //?
   const router = useRouter();
   const todoId = router.query.id;
+  //動的ルートのurlが入ってくる
+  console.log(todoId)
   // const todoId  = "0P6N4an8xyK5LtLxJ1BH"
 
   //選択したtodoのidをURLから取得する
@@ -51,11 +53,15 @@ const EditTodo = () => {
   useEffect(() => {
     const fetchData = async () => {
       const docRef = doc(db, "todos", todoId);
+      //第三引数に動的ルートを使う
+      //docという変数があるのか？
+    
       const docSnap = await getDoc(docRef);
       setTitle(docSnap.data().title);
       setDetail(docSnap.data().detail);
       setCreateDate(docSnap.data().createDate.toDate());
       setUpdateDate(docSnap.data().updateDate.toDate());
+      console.log(todoId)
     };
     if (todoId) {
       fetchData();
