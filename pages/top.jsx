@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 
-import { SearchInput } from "../topComponent/searchInput";
-import { ResetButton } from "../topComponent/resetButton";
-
 //新規追加分(Read)
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
 import { TodoHeader } from "@/components/header";
 import { DeleteButton } from "@/components/DeleteButton";
 import { EditButton } from "@/components/EditButton";
+import { SearchInput } from "@/components/topComponent/searchInput";
+import { ResetButton } from "@/components/topComponent/resetButton";
 
 function Top() {
   const status = [
