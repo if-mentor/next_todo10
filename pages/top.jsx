@@ -21,6 +21,7 @@ import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
 import { TodoHeader } from "@/components/header";
 import { DeleteButton } from "@/components/DeleteButton";
+import { EditButton } from "@/components/EditButton";
 
 function Top() {
   const status = [
@@ -58,18 +59,6 @@ function Top() {
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filteredTodos2, setFilteredTodos2] = useState([]);
-
-  //削除ボタン関数
-  const handleDeleteTodo = (targetTodo) => {
-    setTodos(todos.filter((todo) => todo !== targetTodo));
-  };
-
-  //編集ボタン関数
-  const handleOpenEditPage = (todo) => {
-    setIsEditable(true);
-    setEditId(todo.id);
-    setNewTitle(todo.title); //必要？
-  };
 
   // const handleEditTodo = () => {
   //   const newArray = todos.map((todo) =>
@@ -263,17 +252,8 @@ function Top() {
                   </Td>
 
                   <Td>
-                    <Flex justifyContent="center">
-                      <button
-                        style={{ display: "inline-block", marginRight: "10px" }}
-                        ml="150px"
-                        onClick={() => handleOpenEditPage(todo)}
-                      >
-                        {/* たぶんこんな感じ */}
-                        <Link as={`/edittodo/${todo.id}`} href={{pathname: `/edittodo/[id]`}}>
-                          <EditIcon />
-                        </Link>
-                      </button>
+                    <Flex justifyContent="space-around">
+                      <EditButton id={todo.id} />
                       
                       <DeleteButton id={todo.id} />
                     </Flex>
