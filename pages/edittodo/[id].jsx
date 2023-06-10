@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { DateDisplay } from "../../components/DateDisplay";
+import { TodoHeader } from "@/components/header";
 
 const EditTodo = () => {
   //?
@@ -99,24 +100,7 @@ const EditTodo = () => {
 
   return (
     <>
-      <Box
-        w="100%"
-        h="80px"
-        bg="green.300"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Heading
-          w="85%"
-          maxW="1080px"
-          color="blackAlpha.800"
-          fontSize="48px"
-          fontWeight="bold"
-        >
-          TODO
-        </Heading>
-      </Box>
+      <TodoHeader />
 
       <Container w="85%" maxW="1080px" pt="16px">
         <Box>
