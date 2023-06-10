@@ -22,12 +22,36 @@ locator js
 主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
 
 */
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 import { ComentCards } from "../components/comentCards";
 import { ModalTodoShow } from "../components/modalTodoShow";
 import { TodoHeader } from "@/components/header";
+import { useTodo } from "@/hooks/useTodo";
 
 const todoShow = () => {
+  const { todos, readData } = useTodo();
+  const router = useRouter();
+  const { id } = router.query;
+
+  const getTodoById = (id) => {
+    return todos.find((todo) => todo.id === id);
+  };
+
+  const todo = getTodoById(id);
+  const title = todo ? todo.title : "";
+  const detail = todo ? todo.detail : "";
+  // const createDate = todo ? todo.createDate : "";
+  // const updateDate = todo ? todo.updateDate : "";
+  console.log(todos);
+
+  useEffect(() => {
+    readData();
+  }, []);
+
   return (
     <>
       <Box>
@@ -45,16 +69,7 @@ const todoShow = () => {
             </Box>
             <Box>
               {/* Comment Button */}
-              <Button
-                w={"104px"}
-                h={"40px"}
-                color={"#F0FFF4"}
-                borderRadius={"50px"}
-                bg="#25855A"
-                mr="10px"
-              >
-                Comment
-              </Button>
+              <ModalTodoShow />
 
               {/* Back Button */}
               <Button
@@ -91,7 +106,7 @@ const todoShow = () => {
                 <Box bgColor={"green.300"}>
                   <Box>TITLE</Box>
                 </Box>
-                <Box>Github上に静的サイトをホスティングする</Box>
+                <Box>{title}</Box>
               </Box>
 
               {/* DETAIL */}
@@ -105,17 +120,7 @@ const todoShow = () => {
                 <Box bgColor={"green.300"}>
                   <Box>DETAIL</Box>
                 </Box>
-                <Box>
-                  AWS コンソールで AWS Amplify
-                  を使って静的ウェブサイトをホスティングします。AWS Amplify
-                  は、静的ウェブサイトおよびウェブアプリにフルマネージドのホスティングを提供します。Amplify
-                  のホスティングソリューションは、Amazon CloudFront と Amazon S3
-                  を使って、AWS コンテンツ配信ネットワーク (CDN)
-                  を介してサイトアセットを提供します。
-                  継続的デプロイをセットアップします。Amplify
-                  は、継続的デプロイで Git
-                  ベースのワークフローを提供します。それにより、コードコミットごとに、サイトに自動的に更新をデプロイすることができます。
-                </Box>
+                <Box>{detail}</Box>
               </Box>
 
               {/* FOOTER */}
@@ -126,15 +131,25 @@ const todoShow = () => {
                 left={"16px"}
                 top={"400px"}
               >
-                <ModalTodoShow />
+                {/* edittodoへのリンク */}
+                <Link
+                  as={`/edittodo/${id}`}
+                  href={{ pathname: `/edittodo/[id]` }}
+                >
+                  <Button>
+                    Edit
+                    <EditIcon />
+                  </Button>
+                </Link>
+
                 <Spacer />
                 <Box>
                   <Box>Create</Box>
-                  <Box> 2020-11-8 18:55</Box>
+                  {/* <Box>{createDate}</Box> */}
                 </Box>
                 <Box>
                   <Box>Update</Box>
-                  <Box> 2020-11-8 18:55</Box>
+                  {/* <Box>{updateDate}</Box> */}
                 </Box>
               </HStack>
             </VStack>
