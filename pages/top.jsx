@@ -269,10 +269,22 @@ function Top() {
                         ml="150px"
                         onClick={() => handleOpenEditPage(todo)}
                       >
-                        {/* たぶんこんな感じ */}
-                        <Link as={`/edittodo/${todo.id}`} href={{pathname: `/edittodo/[id]`}}>
+                        <Link
+                          as={`/todoShow/${todo.id}`}
+                          href={{
+                            pathname: "/todoShow",
+                            query: { id: todo.id },
+                          }}
+                        >
                           <EditIcon />
                         </Link>
+
+                        {/* <Link
+                          as={`/edittodo/${todo.id}`}
+                          href={{ pathname: `/edittodo/[id]` }}
+                        >
+                          <EditIcon />
+                        </Link> */}
                       </button>
                       <button onClick={() => handleDeleteTodo(todo)} ml={5}>
                         <DeleteIcon />
