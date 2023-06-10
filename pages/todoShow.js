@@ -31,6 +31,7 @@ import { ComentCards } from "../components/comentCards";
 import { ModalTodoShow } from "../components/modalTodoShow";
 import { TodoHeader } from "@/components/header";
 import { useTodo } from "@/hooks/useTodo";
+import { DateDisplay } from "@/components/DateDisplay";
 
 const todoShow = () => {
   const { todos, readData } = useTodo();
@@ -44,8 +45,8 @@ const todoShow = () => {
   const todo = getTodoById(id);
   const title = todo ? todo.title : "";
   const detail = todo ? todo.detail : "";
-  // const createDate = todo ? todo.createDate : "";
-  // const updateDate = todo ? todo.updateDate : "";
+  const createDate = todo ? todo.createDate : "";
+  const updateDate = todo ? todo.updateDate : "";
   console.log(todos);
 
   useEffect(() => {
@@ -145,11 +146,11 @@ const todoShow = () => {
                 <Spacer />
                 <Box>
                   <Box>Create</Box>
-                  {/* <Box>{createDate}</Box> */}
+                  <DateDisplay date={createDate} />
                 </Box>
                 <Box>
                   <Box>Update</Box>
-                  {/* <Box>{updateDate}</Box> */}
+                  <DateDisplay date={updateDate} />
                 </Box>
               </HStack>
             </VStack>
