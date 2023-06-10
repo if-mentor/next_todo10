@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
 import { TodoHeader } from "@/components/header";
+import { DeleteButton } from "@/components/DeleteButton";
 
 function Top() {
   const status = [
@@ -273,9 +274,8 @@ function Top() {
                           <EditIcon />
                         </Link>
                       </button>
-                      <button onClick={() => handleDeleteTodo(todo)} ml={5}>
-                        <DeleteIcon />
-                      </button>
+                      
+                      <DeleteButton id={todo.id} />
                     </Flex>
                   </Td>
                 </Tr>
