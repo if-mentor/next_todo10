@@ -37,28 +37,12 @@ function Top() {
 
   // const [todos, setTodos] = useState([]);
   const { todos, setTodos, readData } = useTodo();
-  const [searchTitle, setSearchTitle] = useState(""); 
-  const [todoId, setTodoId] = useState(todos.length + 1);
-  const [isEditable, setIsEditable] = useState(false);
-  const [editId, setEditId] = useState("");
-  const [newTitle, setNewTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
   const [filter, setFilter] = useState("-------");
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filteredTodos2, setFilteredTodos2] = useState([]);
   const [filterWordTodo, setFilterWordTodo] = useState([]);
-  
-  //削除ボタン関数
-  const handleDeleteTodo = (targetTodo) => {
-    setTodos(todos.filter((todo) => todo !== targetTodo));
-  };
-
-  //編集ボタン関数
-  const handleOpenEditPage = (todo) => {
-    setIsEditable(true);
-    setEditId(todo.id);
-    setNewTitle(todo.title); //必要？
-  };
 
   const handleStatusChange = (targetTodo, e) => {
     const newArray = todos.map((todo) =>
