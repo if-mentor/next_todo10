@@ -11,8 +11,8 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-import { SearchInput } from "../topComponent/searchInput";
-import { ResetButton } from "../topComponent/resetButton";
+import { SearchInput } from "../components/topComponent/searchInput";
+import { ResetButton } from "../components/topComponent/resetButton";
 // import { status } from '@/config/todo'
 
 //新規追加分(Read)
@@ -47,8 +47,7 @@ function Top() {
 
   // const [todos, setTodos] = useState([]);
   const { todos, setTodos, readData } = useTodo();
-
-  const [todoSearchTitle, setTodoSearchTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState(""); 
   const [todoId, setTodoId] = useState(todos.length + 1);
   const [isEditable, setIsEditable] = useState(false);
   const [editId, setEditId] = useState("");
@@ -57,7 +56,8 @@ function Top() {
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filteredTodos2, setFilteredTodos2] = useState([]);
-
+  const [filterWordTodo, setFilterWordTodo] = useState([]);
+  
   //削除ボタン関数
   const handleDeleteTodo = (targetTodo) => {
     setTodos(todos.filter((todo) => todo !== targetTodo));
@@ -69,13 +69,6 @@ function Top() {
     setEditId(todo.id);
     setNewTitle(todo.title); //必要？
   };
-
-  // const handleEditTodo = () => {
-  //   const newArray = todos.map((todo) =>
-  //   todo.id === editId? {...todo, title:newTitle} : todo)setTodos(newArray)
-  //   setNewTitle('')
-  //   setEditId('')
-  // }
 
   const handleStatusChange = (targetTodo, e) => {
     const newArray = todos.map((todo) =>
@@ -98,15 +91,21 @@ function Top() {
           setFilteredTodos(
             todos.filter((todo) => todo.status === "not started")
           );
+          setFilterWordTodo(
+            todos.filter((todo) => todo.status === "not started")
+          );
           break;
         case "doing":
           setFilteredTodos(todos.filter((todo) => todo.status === "doing"));
+          setFilterWordTodo(todos.filter((todo) => todo.status === "doing"));
           break;
         case "done":
           setFilteredTodos(todos.filter((todo) => todo.status === "done"));
+          setFilterWordTodo(todos.filter((todo) => todo.status === "done"));
           break;
         default:
           setFilteredTodos(todos);
+          setFilterWordTodo(todos);
       }
     };
     filteringTodos();
@@ -133,7 +132,7 @@ function Top() {
   }, [filter2, todos]);
 
   // const handleSearchFormChanges = (e) => {
-  //   setTodoSearchTitle(e.target.value)
+  //   setSearchTitle(e.target.value)
   // }
 
   //Read(ここから)///////////////////////////
@@ -142,6 +141,29 @@ function Top() {
   }, []);
 
   //Read(ここまで)////////////////////////////
+
+  // ワード検索の関数…statusが絞り込まれているものに対してさらにワードで絞り込み//
+  const searchWord = () => {
+    const searchedTodo = filteredTodos.filter((todo) => {
+      // return todo.title === searchTitle
+      // 完全一致の場合
+      return todo.title.indexOf(searchTitle) > -1 
+      // 部分一致　該当するものがない場合-1を返す
+    })
+    console.log(searchedTodo)
+    setFilteredTodos(searchedTodo)
+    // statusが絞り込まれているものに対してさらに更新する
+  }
+
+  // サーチ欄が空になった時の動き//
+  useEffect(() => {
+    if(searchTitle === ""){
+      setFilteredTodos(filterWordTodo)
+      // 今のfilteredTodoにはstatusとワード検索両方の絞り込みが入っている
+      // -> statusだけフィルターがかかった状態に戻る
+    }
+  },[searchTitle])
+
 
   return (
     <div>
@@ -154,8 +176,9 @@ function Top() {
           <Box>
             <p>SEARCH</p>
             <SearchInput
-              todoSearchTitle={todoSearchTitle}
-              setTodoSearchTitle={setTodoSearchTitle}
+              searchTitle={searchTitle}
+              setSearchTitle={setSearchTitle}
+              searchWord={searchWord}
             />
           </Box>
           <Box ml="15px">
