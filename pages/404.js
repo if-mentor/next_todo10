@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
+import Link from "next/link";
 
 const NotFound = () => {
   return (
@@ -26,27 +27,31 @@ const NotFound = () => {
         flexDirection="column"
         m="184px 100px 0px 100px"
       >
-          <Text
-            height="151px"
-            fontSize="64px"
-            fontFamily="Roboto"
-            fontStyle="normal"
-            fontWeight="700"
-            lineHeight="75px"
-            textTransform="uppercase"
-          >
-            404
-          </Text>
+        <Text
+          height="151px"
+          fontSize="64px"
+          fontFamily="Roboto"
+          fontStyle="normal"
+          fontWeight="700"
+          lineHeight="75px"
+          textTransform="uppercase"
+        >
+          404
+        </Text>
 
         <Text
-        height="59px"
-        fontSize="24px"
-        fontFamily="Inter"
-        fontStyle="normal"
-        fontWeight="700"
-        lineHeight="29px"
-        mb="65px"
-        >This is not the web page you are looking for.</Text>
+          height="59px"
+          fontSize="24px"
+          fontFamily="Inter"
+          fontStyle="normal"
+          fontWeight="700"
+          lineHeight="29px"
+          mb="65px"
+        >
+          This is not the web page you are looking for.
+        </Text>
+
+        <Link href={"/top"}>
           <Button
             box-sizing="border-box"
             border="1px solid blackAlpha.800"
@@ -57,6 +62,7 @@ const NotFound = () => {
           >
             TOP
           </Button>
+        </Link>
       </Flex>
     </>
   );
