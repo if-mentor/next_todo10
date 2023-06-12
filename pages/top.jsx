@@ -41,7 +41,6 @@ function Top() {
   const [filter, setFilter] = useState("-------");
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
-  const [filteredTodos2, setFilteredTodos2] = useState([]);
   const [filterWordTodo, setFilterWordTodo] = useState([]);
 
   const handleStatusChange = (targetTodo, e) => {
@@ -87,22 +86,26 @@ function Top() {
 
   //PRIORITY
   useEffect(() => {
-    const filteringTodos2 = () => {
+    const filteringTodos = () => {
       switch (filter2) {
-        case "high":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "high"));
+        case "High":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "High"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "High"));
           break;
-        case "middle":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "middle"));
+        case "Middle":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "Middle"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "Middle"));
           break;
-        case "low":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "low"));
+        case "Low":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "Low"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "Low"));
           break;
         default:
-          setFilteredTodos2(todos);
+          setFilteredTodos(todos);
+          setFilterWordTodo(todos);
       }
     };
-    filteringTodos2();
+    filteringTodos();
   }, [filter2, todos]);
 
   //Read(ここから)///////////////////////////
@@ -167,9 +170,9 @@ function Top() {
               onChange={(e) => setFilter2(e.target.value)}
             >
               <option value="all">-------</option>
-              <option value="high">High</option>
-              <option value="middle">Middle</option>
-              <option value="low">Low</option>
+              <option value="High">High</option>
+              <option value="Middle">Middle</option>
+              <option value="Low">Low</option>
             </Select>
           </Box>
           <ResetButton />
@@ -240,9 +243,9 @@ function Top() {
                       value={todo.priority}
                       onChange={(e) => handlePriorityChange(todo, e)}
                     >
-                      <option value="high">High</option>
-                      <option value="middle">Middle</option>
-                      <option value="low">Low</option>
+                      <option value="High">High</option>
+                      <option value="Middle">Middle</option>
+                      <option value="Low">Low</option>
                     </Select>
                   </Td>
 
