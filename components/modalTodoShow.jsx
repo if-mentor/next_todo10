@@ -13,35 +13,19 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
+import { useGettingId } from "@/hooks/useGettingId";
+import { db } from "@/libs/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 export const ModalTodoShow = () => {
-  ///
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { todoId } = useGettingId();
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  const [commentCard, setCommentCard] = useState([
-    {
-      id: "111111111",
-      name: "aaa",
-      date: "2022/01/02",
-      comment: "おはよう",
-    },
-    {
-      id: "666666",
-      name: "bbb",
-      date: "2022 / 01 / 01",
-      comment: "おはヨーグルト",
-    },
-    {
-      id: "77777",
-      name: "ccc",
-      date: "2022 / 01 / 01",
-      comment: "おはこんばんにちは",
-    },
-  ]);
+  const [commentList, setCommentList] = useState([]);
 
-  const submitComment = () => {
+  const submitComment = async (e) => {
     e.preventDefault();
     if (name.trim() === "") {
       alert("名前が入力されていません");
@@ -51,16 +35,21 @@ export const ModalTodoShow = () => {
       alert("コメントが入力されていません");
       return false;
     }
-    setCommentCard(...commentCard, {
-      id: id,
+    setCommentList(...commentList, {
+      todoId: todoId,
+      name: name,
+      comment: comment,
+    });
+    // addDoc
+    await addDoc(collection(db, "posts"), {
+      todoId: todoId,
       name: name,
       comment: comment,
     });
     setName("");
     setComment("");
   };
-  console.log(commentCard);
-////
+  
 
   return (
     <>
