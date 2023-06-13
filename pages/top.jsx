@@ -215,7 +215,17 @@ function Top() {
               {filteredTodos.map((todo) => (
                 //filteredTodos2もしたい
                 <Tr key={todo.id}>
-                  <Td fontWeight="bold">{todo.title}</Td>
+                  <Td fontWeight="bold">
+                    <Link
+                      as={`/todoShow/${todo.id}`}
+                      href={{
+                        pathname: "/todoShow",
+                        query: { id: todo.id },
+                      }}
+                    >
+                      {todo.title}
+                    </Link>
+                  </Td>
 
                   <Td>
                     <Select
@@ -270,21 +280,11 @@ function Top() {
                         onClick={() => handleOpenEditPage(todo)}
                       >
                         <Link
-                          as={`/todoShow/${todo.id}`}
-                          href={{
-                            pathname: "/todoShow",
-                            query: { id: todo.id },
-                          }}
-                        >
-                          <EditIcon />
-                        </Link>
-
-                        {/* <Link
                           as={`/edittodo/${todo.id}`}
                           href={{ pathname: `/edittodo/[id]` }}
                         >
                           <EditIcon />
-                        </Link> */}
+                        </Link>
                       </button>
                       <button onClick={() => handleDeleteTodo(todo)} ml={5}>
                         <DeleteIcon />
