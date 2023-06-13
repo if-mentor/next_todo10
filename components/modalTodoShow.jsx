@@ -15,7 +15,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { useGettingId } from "@/hooks/useGettingId";
 import { db } from "@/libs/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export const ModalTodoShow = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,23 +29,20 @@ export const ModalTodoShow = () => {
     e.preventDefault();
     if (name.trim() === "") {
       alert("名前が入力されていません");
-      return false;
+      return ;
     }
     if (comment.trim() === "") {
       alert("コメントが入力されていません");
-      return false;
+      return ;
     }
-    setCommentList(...commentList, {
+    const newComment = {
       todoId: todoId,
       name: name,
       comment: comment,
-    });
-    // addDoc
-    await addDoc(collection(db, "posts"), {
-      todoId: todoId,
-      name: name,
-      comment: comment,
-    });
+      date: serverTimestamp(),
+    };
+    setCommentList([...commentList, newComment]);
+    await addDoc(collection(db, "posts"), newComment);
     setName("");
     setComment("");
   };

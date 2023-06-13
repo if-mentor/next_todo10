@@ -2,62 +2,15 @@ import { useEffect, useState } from "react";
 import { VStack, Box, HStack, Text } from "@chakra-ui/react";
 import * as styles from "../styles/comentCards.module.css";
 import { db } from "@/libs/firebase";
-import {
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  collection,
-  where,
-} from "firebase/firestore";
+import { getDocs, query, collection, where } from "firebase/firestore";
 import { DateDisplay } from "./DateDisplay";
 import { useGettingId } from "@/hooks/useGettingId";
 
 export const ComentCards = () => {
-  //firebaseからの読み取り
-  //posts -> commentlist -> {id,comment...}
   const [commentList, setCommentlist] = useState([]);
-  // const readCommentData = async () => {
-  //   const commentData = collection(db, "posts");
-  //   onSnapshot(commentData, (snapshot) => {
-  //     const newCommentsList = [];
-  //     snapshot.docs.map((doc) => {
-  //       newCommentsList.push({
-  //         todoId: doc.data().todoId,
-  //         name: doc.data().name,
-  //         comment: doc.data().comment,
-  //         date: doc.data().date.toDate(),
-  //       });
-  //     });
-  //     setCommentlist(newCommentsList);
-  //   });
-  //   console.log(commentData);
-  // };
-
-  // useEffect(() => {
-  //   readCommentData();
-  // }, []);
-
-  //idによる選別
   const { todoId } = useGettingId();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const docRef = doc(db, "posts", todoId);
-  //     const docSnap = await getDoc(docRef);
-  //     if (docSnap.exists()) {
-  //       const commentData = docSnap.data();
-  //       setCommentlist([commentData]);
-  //     } else {
-  //       setCommentlist([]);
-  //     }
-  //   };
-  //   if (todoId) {
-  //     fetchData();
-  //   }
-  //   console.log(commentList);
-  // }, [todoId]);
-
+  //getDocだと単一データしか取れなかった
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(
@@ -68,7 +21,7 @@ export const ComentCards = () => {
         todoId: doc.data().todoId,
         name: doc.data().name,
         comment: doc.data().comment,
-        // date: doc.data().date.toDate(),
+        date: doc.data().date.toDate(),
       }));
       setCommentlist(newCommentsList);
     };
@@ -78,7 +31,7 @@ export const ComentCards = () => {
     }
   }, [todoId]);
 
-  console.log(commentList);
+  // console.log(commentList);
 
   return (
     <>
