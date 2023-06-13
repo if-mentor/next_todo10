@@ -22,36 +22,40 @@ locator js
 主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
 
 */
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/libs/firebase";
 import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { ComentCards } from "../components/comentCards";
 import { ModalTodoShow } from "../components/modalTodoShow";
 import { TodoHeader } from "@/components/header";
-import { useTodo } from "@/hooks/useTodo";
 import { DateDisplay } from "@/components/DateDisplay";
+import { useGettingId } from "@/hooks/useGettingId";
 
 const todoShow = () => {
-  const { todos, readData } = useTodo();
-  const router = useRouter();
-  const { id } = router.query;
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
+  const [createDate, setCreateDate] = useState("");
+  const [updateDate, setUpdateDate] = useState("");
+  const { todoId } = useGettingId();
 
-  const getTodoById = (id) => {
-    return todos.find((todo) => todo.id === id);
-  };
-
-  const todo = getTodoById(id);
-  const title = todo ? todo.title : "";
-  const detail = todo ? todo.detail : "";
-  const createDate = todo ? todo.createDate : "";
-  const updateDate = todo ? todo.updateDate : "";
-  console.log(todos);
+  //後でhooksに切り分ける
 
   useEffect(() => {
-    readData();
-  }, []);
+    const fetchData = async () => {
+      const docRef = doc(db, "todos", todoId);
+      const docSnap = await getDoc(docRef);
+      setTitle(docSnap.data().title);
+      setDetail(docSnap.data().detail);
+      setCreateDate(docSnap.data().createDate.toDate());
+      setUpdateDate(docSnap.data().updateDate.toDate());
+    };
+    if (todoId) {
+      fetchData();
+    }
+  }, [todoId]);
 
   return (
     <>
@@ -134,7 +138,7 @@ const todoShow = () => {
               >
                 {/* edittodoへのリンク */}
                 <Link
-                  as={`/edittodo/${id}`}
+                  as={`/edittodo/${todoId}`}
                   href={{ pathname: `/edittodo/[id]` }}
                 >
                   <Button>
