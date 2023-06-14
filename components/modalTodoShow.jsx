@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useGettingId } from "@/hooks/useGettingId";
 import { db } from "@/libs/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -29,11 +29,11 @@ export const ModalTodoShow = () => {
     e.preventDefault();
     if (name.trim() === "") {
       alert("名前が入力されていません");
-      return ;
+      return;
     }
     if (comment.trim() === "") {
       alert("コメントが入力されていません");
-      return ;
+      return;
     }
     const newComment = {
       todoId: todoId,
@@ -45,8 +45,11 @@ export const ModalTodoShow = () => {
     await addDoc(collection(db, "posts"), newComment);
     setName("");
     setComment("");
+    onClose();
   };
-  
+
+  //コメントの後、画面反映させたかったけどわからなかった
+ 
 
   return (
     <>
@@ -80,6 +83,7 @@ export const ModalTodoShow = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Your Comment</FormLabel>
+                {/* 開始位置が真ん中、改行が出来ない */}
                 <Input
                   w={"350px"}
                   h={"245px"}

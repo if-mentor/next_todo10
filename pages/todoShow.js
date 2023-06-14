@@ -77,15 +77,17 @@ const todoShow = () => {
               <ModalTodoShow />
 
               {/* Back Button */}
-              <Button
-                w={"104px"}
-                h={"40px"}
-                borderRadius={"50px"}
-                border={"1px"}
-                bg="#68D391"
-              >
-                Back
-              </Button>
+              <Link href="/top">
+                <Button
+                  w={"104px"}
+                  h={"40px"}
+                  borderRadius={"50px"}
+                  border={"1px"}
+                  bg="#68D391"
+                >
+                  Back
+                </Button>
+              </Link>
             </Box>
           </Box>
 

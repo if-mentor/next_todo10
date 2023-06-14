@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { VStack, Box, HStack, Text } from "@chakra-ui/react";
+import { VStack, Box, HStack, Text, Center } from "@chakra-ui/react";
 import * as styles from "../styles/comentCards.module.css";
 import { db } from "@/libs/firebase";
 import { getDocs, query, collection, where } from "firebase/firestore";
@@ -36,7 +36,7 @@ export const ComentCards = () => {
   return (
     <>
       {commentList.length === 0 ? (
-        <Text>コメントはまだありません</Text>
+        <Center w = '472px'>コメントはまだありません</Center>
       ) : (
         <VStack display="grid" height="480px" overflow="scroll">
           {commentList.map((comments) => (
