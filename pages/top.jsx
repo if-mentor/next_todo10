@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
+import { db } from "@/libs/firebase";
 
 //新規追加分(Read)
 import { useTodo } from "../hooks/useTodo";
@@ -10,8 +11,12 @@ import { DeleteButton } from "@/components/DeleteButton";
 import { EditButton } from "@/components/EditButton";
 import { SearchInput } from "@/components/topComponent/searchInput";
 import { ResetButton } from "@/components/topComponent/resetButton";
+import { doc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 function Top() {
+  const router = useRouter();
+
   const status = [
     {
       text: "not started",
@@ -44,17 +49,21 @@ function Top() {
   const [filteredTodos2, setFilteredTodos2] = useState([]);
   const [filterWordTodo, setFilterWordTodo] = useState([]);
 
+  //firebase上のstatus読み取り変更
+  //画面上での新しい配列作成コードは削除しました
   const handleStatusChange = (targetTodo, e) => {
-    const newArray = todos.map((todo) =>
-      todo.id === targetTodo.id ? { ...todo, status: e.target.value } : todo
-    );
-    setTodos(newArray);
+    e.preventDefault();
+    updateDoc(doc(db, "todos", targetTodo.id),{
+      status:e.target.value
+    });
   };
+
+  //firebase上のpriority読み取り変更
   const handlePriorityChange = (targetTodo, e) => {
-    const newArray = todos.map((todo) =>
-      todo.id === targetTodo.id ? { ...todo, priority: e.target.value } : todo
-    );
-    setTodos(newArray);
+    e.preventDefault();
+    updateDoc(doc(db, "todos", targetTodo.id), {
+      priority:e.target.value
+    });
   };
 
   //STATUS
@@ -175,7 +184,11 @@ function Top() {
           <ResetButton />
           <Spacer />
           <Box mt="10">
-            <EditIcon />
+            {/* ページ遷移動作追加しました */}
+            <EditIcon 
+              onClick={() => router.push('/create')}
+              cursor="pointer"
+            />
           </Box>
         </Box>
 

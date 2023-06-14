@@ -11,6 +11,13 @@ export const SearchInput=(props) => {
     console.log(searchTitle)
   }, [searchTitle])
 
+  //Enterで発火する
+  const handleKeyDown = (event) => {
+    if(event.key === "Enter") {
+      searchWord();
+    }
+  };
+
   return (
     <InputGroup size='md' 
     >
@@ -20,6 +27,7 @@ export const SearchInput=(props) => {
         placeholder='Text'
         value={searchTitle}
         onChange={(e) => setSearchTitle(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <InputRightElement width='4.5rem' >
         <IconButton  
