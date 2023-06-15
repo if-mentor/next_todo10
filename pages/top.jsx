@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer, Button } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { db } from "@/libs/firebase";
 
@@ -185,10 +185,15 @@ function Top() {
           <Spacer />
           <Box mt="10">
             {/* ページ遷移動作追加しました */}
-            <EditIcon 
+            <Button 
+              rightIcon={<EditIcon />} 
+              colorScheme='green' 
+              variant='outline'
               onClick={() => router.push('/create')}
-              cursor="pointer"
-            />
+              borderRadius="full"
+            >
+              New
+            </Button>
           </Box>
         </Box>
 
