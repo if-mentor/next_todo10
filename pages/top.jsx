@@ -222,6 +222,7 @@ function Top() {
                         pathname: "/todoShow",
                         query: { id: todo.id },
                       }}
+                      className="link"
                     >
                       {todo.title}
                     </Link>
