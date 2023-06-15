@@ -34,7 +34,7 @@ import { TodoHeader } from "@/components/header";
 import { DateDisplay } from "@/components/DateDisplay";
 import { useGettingId } from "@/hooks/useGettingId";
 
-const todoShow = () => {
+const TodoShow = () => {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [createDate, setCreateDate] = useState("");
@@ -172,4 +172,4 @@ const todoShow = () => {
   );
 };
 
-export default todoShow;
+export default TodoShow;
