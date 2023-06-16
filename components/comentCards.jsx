@@ -21,7 +21,7 @@ export const ComentCards = () => {
         todoId: doc.data().todoId,
         name: doc.data().name,
         comment: doc.data().comment,
-        date: doc.data().date.toDate(),
+        date: doc.data().date ? doc.data().date.toDate() : '',
       }));
       setCommentlist(newCommentsList);
     };
@@ -29,7 +29,7 @@ export const ComentCards = () => {
     if (todoId) {
       fetchData();
     }
-  }, [todoId]);
+  }, [todoId,commentList]);
 
   // console.log(commentList);
 
