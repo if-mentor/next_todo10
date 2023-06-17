@@ -225,7 +225,18 @@ function Top() {
               {filteredTodos.map((todo) => (
                 //filteredTodos2もしたい
                 <Tr key={todo.id}>
-                  <Td fontWeight="bold">{todo.title}</Td>
+                  <Td fontWeight="bold">
+                    <Link
+                      as={`/todoShow/${todo.id}`}
+                      href={{
+                        pathname: "/todoShow",
+                        query: { id: todo.id },
+                      }}
+                      className="link"
+                    >
+                      {todo.title}
+                    </Link>
+                  </Td>
 
                   <Td>
                     <Select
@@ -273,9 +284,9 @@ function Top() {
                   </Td>
 
                   <Td>
+                    <Flex justifyContent="center">
                     <Flex justifyContent="space-around">
                       <EditButton id={todo.id} />
-                      
                       <DeleteButton id={todo.id} />
                     </Flex>
                   </Td>

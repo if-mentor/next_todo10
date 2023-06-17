@@ -22,12 +22,41 @@ locator js
 主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
 
 */
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/libs/firebase";
 import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
-import { ComentCards } from "../components/comentCards";
-import { ModalTodoShow } from "../components/modalTodoShow";
+import { EditIcon } from "@chakra-ui/icons";
+import { ComentCards } from "../../components/comentCards";
+import { ModalTodoShow } from "../../components/modalTodoShow";
 import { TodoHeader } from "@/components/header";
+import { DateDisplay } from "@/components/DateDisplay";
+import { useGettingId } from "@/hooks/useGettingId";
 
-const todoShow = () => {
+const TodoShow = () => {
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
+  const [createDate, setCreateDate] = useState("");
+  const [updateDate, setUpdateDate] = useState("");
+  const { todoId } = useGettingId();
+
+  //後でhooksに切り分ける
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "todos", todoId);
+      const docSnap = await getDoc(docRef);
+      setTitle(docSnap.data().title);
+      setDetail(docSnap.data().detail);
+      setCreateDate(docSnap.data().createDate.toDate());
+      setUpdateDate(docSnap.data().updateDate.toDate());
+    };
+    if (todoId) {
+      fetchData();
+    }
+  }, [todoId]);
+
   return (
     <>
       <Box>
@@ -45,27 +74,20 @@ const todoShow = () => {
             </Box>
             <Box>
               {/* Comment Button */}
-              <Button
-                w={"104px"}
-                h={"40px"}
-                color={"#F0FFF4"}
-                borderRadius={"50px"}
-                bg="#25855A"
-                mr="10px"
-              >
-                Comment
-              </Button>
+              <ModalTodoShow />
 
               {/* Back Button */}
-              <Button
-                w={"104px"}
-                h={"40px"}
-                borderRadius={"50px"}
-                border={"1px"}
-                bg="#68D391"
-              >
-                Back
-              </Button>
+              <Link href="/top">
+                <Button
+                  w={"104px"}
+                  h={"40px"}
+                  borderRadius={"50px"}
+                  border={"1px"}
+                  bg="#68D391"
+                >
+                  Back
+                </Button>
+              </Link>
             </Box>
           </Box>
 
@@ -91,7 +113,7 @@ const todoShow = () => {
                 <Box bgColor={"green.300"}>
                   <Box>TITLE</Box>
                 </Box>
-                <Box>Github上に静的サイトをホスティングする</Box>
+                <Box>{title}</Box>
               </Box>
 
               {/* DETAIL */}
@@ -105,17 +127,7 @@ const todoShow = () => {
                 <Box bgColor={"green.300"}>
                   <Box>DETAIL</Box>
                 </Box>
-                <Box>
-                  AWS コンソールで AWS Amplify
-                  を使って静的ウェブサイトをホスティングします。AWS Amplify
-                  は、静的ウェブサイトおよびウェブアプリにフルマネージドのホスティングを提供します。Amplify
-                  のホスティングソリューションは、Amazon CloudFront と Amazon S3
-                  を使って、AWS コンテンツ配信ネットワーク (CDN)
-                  を介してサイトアセットを提供します。
-                  継続的デプロイをセットアップします。Amplify
-                  は、継続的デプロイで Git
-                  ベースのワークフローを提供します。それにより、コードコミットごとに、サイトに自動的に更新をデプロイすることができます。
-                </Box>
+                <Box>{detail}</Box>
               </Box>
 
               {/* FOOTER */}
@@ -126,15 +138,25 @@ const todoShow = () => {
                 left={"16px"}
                 top={"400px"}
               >
-                <ModalTodoShow />
+                {/* edittodoへのリンク */}
+                <Link
+                  as={`/edittodo/${todoId}`}
+                  href={{ pathname: `/edittodo/[id]` }}
+                >
+                  <Button>
+                    Edit
+                    <EditIcon />
+                  </Button>
+                </Link>
+
                 <Spacer />
                 <Box>
                   <Box>Create</Box>
-                  <Box> 2020-11-8 18:55</Box>
+                  <DateDisplay date={createDate} />
                 </Box>
                 <Box>
                   <Box>Update</Box>
-                  <Box> 2020-11-8 18:55</Box>
+                  <DateDisplay date={updateDate} />
                 </Box>
               </HStack>
             </VStack>
@@ -150,4 +172,4 @@ const todoShow = () => {
   );
 };
 
-export default todoShow;
+export default TodoShow;
