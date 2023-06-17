@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Heading, Select, Box, Flex, Spacer } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
-
-import { SearchInput } from "../topComponent/searchInput";
-import { ResetButton } from "../topComponent/resetButton";
-// import { status } from '@/config/todo'
+import { useState, useEffect } from "react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer, Button } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { db } from "@/libs/firebase";
 
 //新規追加分(Read)
-import Link from "next/link";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
 import { TodoHeader } from "@/components/header";
+import { DeleteButton } from "@/components/DeleteButton";
+import { EditButton } from "@/components/EditButton";
+import { SearchInput } from "@/components/topComponent/searchInput";
+import { ResetButton } from "@/components/topComponent/resetButton";
+import { doc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 function Top() {
+  const router = useRouter();
+
   const status = [
     {
       text: "not started",
@@ -47,47 +42,28 @@ function Top() {
 
   // const [todos, setTodos] = useState([]);
   const { todos, setTodos, readData } = useTodo();
-
-  const [todoSearchTitle, setTodoSearchTitle] = useState("");
-  const [todoId, setTodoId] = useState(todos.length + 1);
-  const [isEditable, setIsEditable] = useState(false);
-  const [editId, setEditId] = useState("");
-  const [newTitle, setNewTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
   const [filter, setFilter] = useState("-------");
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filteredTodos2, setFilteredTodos2] = useState([]);
+  const [filterWordTodo, setFilterWordTodo] = useState([]);
 
-  //削除ボタン関数
-  const handleDeleteTodo = (targetTodo) => {
-    setTodos(todos.filter((todo) => todo !== targetTodo));
-  };
-
-  //編集ボタン関数
-  const handleOpenEditPage = (todo) => {
-    setIsEditable(true);
-    setEditId(todo.id);
-    setNewTitle(todo.title); //必要？
-  };
-
-  // const handleEditTodo = () => {
-  //   const newArray = todos.map((todo) =>
-  //   todo.id === editId? {...todo, title:newTitle} : todo)setTodos(newArray)
-  //   setNewTitle('')
-  //   setEditId('')
-  // }
-
+  //firebase上のstatus読み取り変更
+  //画面上での新しい配列作成コードは削除しました
   const handleStatusChange = (targetTodo, e) => {
-    const newArray = todos.map((todo) =>
-      todo.id === targetTodo.id ? { ...todo, status: e.target.value } : todo
-    );
-    setTodos(newArray);
+    e.preventDefault();
+    updateDoc(doc(db, "todos", targetTodo.id),{
+      status:e.target.value
+    });
   };
+
+  //firebase上のpriority読み取り変更
   const handlePriorityChange = (targetTodo, e) => {
-    const newArray = todos.map((todo) =>
-      todo.id === targetTodo.id ? { ...todo, priority: e.target.value } : todo
-    );
-    setTodos(newArray);
+    e.preventDefault();
+    updateDoc(doc(db, "todos", targetTodo.id), {
+      priority:e.target.value
+    });
   };
 
   //STATUS
@@ -98,15 +74,21 @@ function Top() {
           setFilteredTodos(
             todos.filter((todo) => todo.status === "not started")
           );
+          setFilterWordTodo(
+            todos.filter((todo) => todo.status === "not started")
+          );
           break;
         case "doing":
           setFilteredTodos(todos.filter((todo) => todo.status === "doing"));
+          setFilterWordTodo(todos.filter((todo) => todo.status === "doing"));
           break;
         case "done":
           setFilteredTodos(todos.filter((todo) => todo.status === "done"));
+          setFilterWordTodo(todos.filter((todo) => todo.status === "done"));
           break;
         default:
           setFilteredTodos(todos);
+          setFilterWordTodo(todos);
       }
     };
     filteringTodos();
@@ -132,10 +114,6 @@ function Top() {
     filteringTodos2();
   }, [filter2, todos]);
 
-  // const handleSearchFormChanges = (e) => {
-  //   setTodoSearchTitle(e.target.value)
-  // }
-
   //Read(ここから)///////////////////////////
   useEffect(() => {
     readData();
@@ -143,10 +121,32 @@ function Top() {
 
   //Read(ここまで)////////////////////////////
 
+  // ワード検索の関数…statusが絞り込まれているものに対してさらにワードで絞り込み//
+  const searchWord = () => {
+    const searchedTodo = filteredTodos.filter((todo) => {
+      // return todo.title === searchTitle
+      // 完全一致の場合
+      return todo.title.indexOf(searchTitle) > -1 
+      // 部分一致　該当するものがない場合-1を返す
+    })
+    console.log(searchedTodo)
+    setFilteredTodos(searchedTodo)
+    // statusが絞り込まれているものに対してさらに更新する
+  }
+
+  // サーチ欄が空になった時の動き//
+  useEffect(() => {
+    if(searchTitle === ""){
+      setFilteredTodos(filterWordTodo)
+      // 今のfilteredTodoにはstatusとワード検索両方の絞り込みが入っている
+      // -> statusだけフィルターがかかった状態に戻る
+    }
+  },[searchTitle])
+
+
   return (
     <div>
       <TodoHeader />
-
       <Box maxW="1080px" m="0 auto">
         <Heading as="h2" size="2xl" mt="2">
           TODO LIST
@@ -155,8 +155,9 @@ function Top() {
           <Box>
             <p>SEARCH</p>
             <SearchInput
-              todoSearchTitle={todoSearchTitle}
-              setTodoSearchTitle={setTodoSearchTitle}
+              searchTitle={searchTitle}
+              setSearchTitle={setSearchTitle}
+              searchWord={searchWord}
             />
           </Box>
           <Box ml="15px">
@@ -183,7 +184,16 @@ function Top() {
           <ResetButton />
           <Spacer />
           <Box mt="10">
-            <EditIcon />
+            {/* ページ遷移動作追加しました */}
+            <Button 
+              rightIcon={<EditIcon />} 
+              colorScheme='green' 
+              variant='outline'
+              onClick={() => router.push('/create')}
+              borderRadius="full"
+            >
+              New
+            </Button>
           </Box>
         </Box>
 
@@ -275,21 +285,9 @@ function Top() {
 
                   <Td>
                     <Flex justifyContent="center">
-                      <button
-                        style={{ display: "inline-block", marginRight: "10px" }}
-                        ml="150px"
-                        onClick={() => handleOpenEditPage(todo)}
-                      >
-                        <Link
-                          as={`/edittodo/${todo.id}`}
-                          href={{ pathname: `/edittodo/[id]` }}
-                        >
-                          <EditIcon />
-                        </Link>
-                      </button>
-                      <button onClick={() => handleDeleteTodo(todo)} ml={5}>
-                        <DeleteIcon />
-                      </button>
+                    <Flex justifyContent="space-around">
+                      <EditButton id={todo.id} />
+                      <DeleteButton id={todo.id} />
                     </Flex>
                   </Td>
                 </Tr>
@@ -300,6 +298,6 @@ function Top() {
       </Box>
     </div>
   );
-}
+};
 
 export default Top;
