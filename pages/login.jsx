@@ -7,9 +7,12 @@ import {
   Text,
   Input,
   Heading,
+  VStack,
 } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../libs/firebase";
+import Link from "next/link";
+
 
 
 const Login = () => {
@@ -109,13 +112,14 @@ const Login = () => {
               />
             </Box>
 
-            <Box textAlign={"center"}>
+            <VStack textAlign={"center"}>
               {/* エラー時のメッセージ */}
               {error && <p style={{ color: 'red' }}>{error}</p>}
               <Button onClick={(e)=>onSubmitFormData(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 LOGIN
               </Button>
-            </Box>
+              <Link href="/signup">登録していないかたはこちらから</Link>
+            </VStack>
           </Box>
         </Box>
       </Box>
