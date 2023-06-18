@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer, Button } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { db } from "@/libs/firebase";
+import Link from "next/link";
+
 
 //新規追加分(Read)
 import { useTodo } from "../hooks/useTodo";
@@ -284,13 +286,12 @@ function Top() {
                   </Td>
 
                   <Td>
-                    <Flex justifyContent="center">
                     <Flex justifyContent="space-around">
                       <EditButton id={todo.id} />
                       <DeleteButton id={todo.id} />
                     </Flex>
                   </Td>
-                </Tr>
+                </Tr> 
               ))}
             </Tbody>
           </Table>
