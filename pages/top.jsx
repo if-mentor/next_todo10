@@ -4,7 +4,6 @@ import { EditIcon } from "@chakra-ui/icons";
 import { db } from "@/libs/firebase";
 import Link from "next/link";
 
-
 //新規追加分(Read)
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
@@ -19,8 +18,6 @@ import { useRouter } from "next/router";
 //ログイン制限分
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../libs/firebase";
-
-
 
 function Top() {
   const router = useRouter();
@@ -54,7 +51,6 @@ function Top() {
   const [filter, setFilter] = useState("-------");
   const [filter2, setFilter2] = useState("-------");
   const [filteredTodos, setFilteredTodos] = useState([]);
-  const [filteredTodos2, setFilteredTodos2] = useState([]);
   const [filterWordTodo, setFilterWordTodo] = useState([]);
 
   //firebase上のstatus読み取り変更
@@ -104,22 +100,26 @@ function Top() {
 
   //PRIORITY
   useEffect(() => {
-    const filteringTodos2 = () => {
+    const filteringTodos = () => {
       switch (filter2) {
-        case "high":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "high"));
+        case "High":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "High"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "High"));
           break;
-        case "middle":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "middle"));
+        case "Middle":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "Middle"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "Middle"));
           break;
-        case "low":
-          setFilteredTodos2(todos.filter((todo) => todo.status === "low"));
+        case "Low":
+          setFilteredTodos(todos.filter((todo) => todo.priority === "Low"));
+          setFilterWordTodo(todos.filter((todo) => todo.priority === "Low"));
           break;
         default:
-          setFilteredTodos2(todos);
+          setFilteredTodos(todos);
+          setFilterWordTodo(todos);
       }
     };
-    filteringTodos2();
+    filteringTodos();
   }, [filter2, todos]);
 
   //Read(ここから)///////////////////////////
@@ -151,7 +151,6 @@ function Top() {
     }
   },[searchTitle])
 
-
   const [userAuth, setUserAuth] = useState();
 
   useEffect(() => {
@@ -166,158 +165,158 @@ function Top() {
   });
 
   if (userAuth !== null) {
-    return (
-      <div>
-        <TodoHeader />
-        <Box maxW="1080px" m="0 auto">
-          <Heading as="h2" size="2xl" mt="2">
-            TODO LIST
-          </Heading>
-          <Box display="flex" mt="32px" mb="32px">
-            <Box>
-              <p>SEARCH</p>
-              <SearchInput
-                searchTitle={searchTitle}
-                setSearchTitle={setSearchTitle}
-                searchWord={searchWord}
-              />
-            </Box>
-            <Box ml="15px">
-              <p>STATUS</p>
-              <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                <option value="all">-------</option>
-                <option value="notStarted">NOT STARTED</option>
-                <option value="doing">DOING</option>
-                <option value="done">DONE</option>
-              </Select>
-            </Box>
-            <Box ml="15px">
-              <p>PRIORITY</p>
-              <Select
-                value={filter2}
-                onChange={(e) => setFilter2(e.target.value)}
-              >
-                <option value="all">-------</option>
-                <option value="high">High</option>
-                <option value="middle">Middle</option>
-                <option value="low">Low</option>
-              </Select>
-            </Box>
-            <ResetButton />
-            <Spacer />
-            <Box mt="10">
-              {/* ページ遷移動作追加しました */}
-              <Button 
-                rightIcon={<EditIcon />} 
-                colorScheme='green' 
-                variant='outline'
-                onClick={() => router.push('/create')}
-                borderRadius="full"
-              >
-                New
-              </Button>
-            </Box>
+  return (
+    <div>
+      <TodoHeader />
+      <Box maxW="1080px" m="0 auto">
+        <Heading as="h2" size="2xl" mt="2">
+          TODO LIST
+        </Heading>
+        <Box display="flex" mt="32px" mb="32px">
+          <Box>
+            <p>SEARCH</p>
+            <SearchInput
+              searchTitle={searchTitle}
+              setSearchTitle={setSearchTitle}
+              searchWord={searchWord}
+            />
           </Box>
-
-          <TableContainer>
-            <Table size="sm" variant="simple">
-              <Thead size="3xl" bg="#68D391" height="16">
-                <Tr>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Task
-                  </Th>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Status
-                  </Th>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Priority
-                  </Th>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Create
-                  </Th>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Update
-                  </Th>
-                  <Th textAlign="center" fontSize="2xl" textTransform="none">
-                    Action
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {filteredTodos.map((todo) => (
-                  //filteredTodos2もしたい
-                  <Tr key={todo.id}>
-                    <Td fontWeight="bold">
-                      <Link
-                        as={`/todoShow/${todo.id}`}
-                        href={{
-                          pathname: "/todoShow",
-                          query: { id: todo.id },
-                        }}
-                        className="link"
-                      >
-                        {todo.title}
-                      </Link>
-                    </Td>
-
-                    <Td>
-                      <Select
-                        //?はオプショナルチェーン演算子
-                        bg={
-                          status.find((value) => todo.status === value.text)
-                            ?.backgroundColor
-                        }
-                        color={
-                          status.find((value) => todo.status === value.text)
-                            ?.color
-                        }
-                        borderColor="blackAlpha.800"
-                        borderRadius="full"
-                        value={todo.status}
-                        onChange={(e) => handleStatusChange(todo, e)}
-                        fontWeight="bold"
-                      >
-                        {status.map((value) => (
-                          <option key={value.text} value={value.text}>
-                            {value.word}
-                          </option>
-                        ))}
-                      </Select>
-                    </Td>
-
-                    <Td>
-                      <Select
-                        borderColor="tomato"
-                        value={todo.priority}
-                        onChange={(e) => handlePriorityChange(todo, e)}
-                      >
-                        <option value="high">High</option>
-                        <option value="middle">Middle</option>
-                        <option value="low">Low</option>
-                      </Select>
-                    </Td>
-
-                    <Td textAlign="center" fontWeight="bold">
-                      <DateDisplay date={todo.createDate} />
-                    </Td>
-
-                    <Td textAlign="center" fontWeight="bold">
-                      <DateDisplay date={todo.updateDate} />
-                    </Td>
-
-                    <Td>
-                      <Flex justifyContent="space-around">
-                        <EditButton id={todo.id} />
-                        <DeleteButton id={todo.id} />
-                      </Flex>
-                    </Td>
-                  </Tr> 
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <Box ml="15px">
+            <p>STATUS</p>
+            <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
+              <option value="all">-------</option>
+              <option value="notStarted">NOT STARTED</option>
+              <option value="doing">DOING</option>
+              <option value="done">DONE</option>
+            </Select>
+          </Box>
+          <Box ml="15px">
+            <p>PRIORITY</p>
+            <Select
+              value={filter2}
+              onChange={(e) => setFilter2(e.target.value)}
+            >
+              <option value="all">-------</option>
+              <option value="High">High</option>
+              <option value="Middle">Middle</option>
+              <option value="Low">Low</option>
+            </Select>
+          </Box>
+          <ResetButton />
+          <Spacer />
+          <Box mt="10">
+            {/* ページ遷移動作追加しました */}
+            <Button 
+              rightIcon={<EditIcon />} 
+              colorScheme='green' 
+              variant='outline'
+              onClick={() => router.push('/create')}
+              borderRadius="full"
+            >
+              New
+            </Button>
+          </Box>
         </Box>
-      </div>
+
+        <TableContainer>
+          <Table size="sm" variant="simple">
+            <Thead size="3xl" bg="#68D391" height="16">
+              <Tr>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Task
+                </Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Status
+                </Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Priority
+                </Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Create
+                </Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Update
+                </Th>
+                <Th textAlign="center" fontSize="2xl" textTransform="none">
+                  Action
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {filteredTodos.map((todo) => (
+                //filteredTodos2もしたい
+                <Tr key={todo.id}>
+                  <Td fontWeight="bold">
+                    <Link
+                      as={`/todoShow/${todo.id}`}
+                      href={{
+                        pathname: "/todoShow",
+                        query: { id: todo.id },
+                      }}
+                      className="link"
+                    >
+                      {todo.title}
+                    </Link>
+                  </Td>
+
+                  <Td>
+                    <Select
+                      //?はオプショナルチェーン演算子
+                      bg={
+                        status.find((value) => todo.status === value.text)
+                          ?.backgroundColor
+                      }
+                      color={
+                        status.find((value) => todo.status === value.text)
+                          ?.color
+                      }
+                      borderColor="blackAlpha.800"
+                      borderRadius="full"
+                      value={todo.status}
+                      onChange={(e) => handleStatusChange(todo, e)}
+                      fontWeight="bold"
+                    >
+                      {status.map((value) => (
+                        <option key={value.text} value={value.text}>
+                          {value.word}
+                        </option>
+                      ))}
+                    </Select>
+                  </Td>
+
+                  <Td>
+                    <Select
+                      borderColor="tomato"
+                      value={todo.priority}
+                      onChange={(e) => handlePriorityChange(todo, e)}
+                    >
+                      <option value="High">High</option>
+                      <option value="Middle">Middle</option>
+                      <option value="Low">Low</option>
+                    </Select>
+                  </Td>
+
+                  <Td textAlign="center" fontWeight="bold">
+                    <DateDisplay date={todo.createDate} />
+                  </Td>
+
+                  <Td textAlign="center" fontWeight="bold">
+                    <DateDisplay date={todo.updateDate} />
+                  </Td>
+
+                  <Td>
+                    <Flex justifyContent="space-around">
+                      <EditButton id={todo.id} />
+                      <DeleteButton id={todo.id} />
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </div>
     );
   };
 };
