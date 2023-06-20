@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Select, Box, Flex, Spacer, Button } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { db } from "@/libs/firebase";
+import Link from "next/link";
 
 //新規追加分(Read)
 import { useTodo } from "../hooks/useTodo";
@@ -13,6 +14,10 @@ import { SearchInput } from "@/components/topComponent/searchInput";
 import { ResetButton } from "@/components/topComponent/resetButton";
 import { doc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
+
+//ログイン制限分
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../libs/firebase";
 
 function Top() {
   const router = useRouter();
@@ -146,7 +151,20 @@ function Top() {
     }
   },[searchTitle])
 
+  const [userAuth, setUserAuth] = useState();
 
+  useEffect(() => {
+    // ログイン認証
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push("/login");
+      } else {
+        setUserAuth(user);
+      }
+    }, []);
+  });
+
+  if (userAuth !== null) {
   return (
     <div>
       <TodoHeader />
@@ -287,7 +305,6 @@ function Top() {
                   </Td>
 
                   <Td>
-                    <Flex justifyContent="center">
                     <Flex justifyContent="space-around">
                       <EditButton id={todo.id} />
                       <DeleteButton id={todo.id} />
@@ -300,7 +317,8 @@ function Top() {
         </TableContainer>
       </Box>
     </div>
-  );
+    );
+  };
 };
 
 export default Top;
