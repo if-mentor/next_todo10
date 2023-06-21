@@ -1,25 +1,13 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-} from "@chakra-ui/react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { useState,useEffect } from "react";
-import { useGettingId } from "@/hooks/useGettingId";
 import { db } from "@/libs/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export const ModalTodoShow = () => {
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { todoId } = useGettingId();
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
@@ -36,7 +24,7 @@ export const ModalTodoShow = () => {
       return;
     }
     const newComment = {
-      todoId: todoId,
+      todoId: router.query.id,
       name: name,
       comment: comment,
       date: serverTimestamp(),
@@ -47,9 +35,6 @@ export const ModalTodoShow = () => {
     setComment("");
     onClose();
   };
-
-  //コメントの後、画面反映させたかったけどわからなかった
- 
 
   return (
     <>
@@ -109,4 +94,4 @@ export const ModalTodoShow = () => {
       </Modal>
     </>
   );
-};
+}

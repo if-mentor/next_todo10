@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { VStack, Box, HStack, Text, Center } from "@chakra-ui/react";
-import * as styles from "../styles/comentCards.module.css";
+import { useRouter } from "next/router";
+import { VStack, Box, HStack, Center } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
 import { getDocs, query, collection, where } from "firebase/firestore";
+
+import * as styles from "../styles/comentCards.module.css";
 import { DateDisplay } from "./DateDisplay";
-import { useGettingId } from "@/hooks/useGettingId";
 
 export const ComentCards = () => {
+  const router = useRouter();
   const [commentList, setCommentlist] = useState([]);
-  const { todoId } = useGettingId();
 
   //getDocだと単一データしか取れなかった
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(
-        query(collection(db, "posts"), where("todoId", "==", todoId))
+        query(collection(db, "posts"), where("todoId", "==", router.query.id))
       );
       const newCommentsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -26,12 +27,10 @@ export const ComentCards = () => {
       setCommentlist(newCommentsList);
     };
 
-    if (todoId) {
+    if (router.query.id) {
       fetchData();
     }
-  }, [todoId,commentList]);
-
-  // console.log(commentList);
+  }, [router.query.id, commentList]);
 
   return (
     <>

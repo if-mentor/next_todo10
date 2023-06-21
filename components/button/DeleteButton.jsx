@@ -9,13 +9,13 @@ export const DeleteButton = ({ id }) => {
       await deleteDoc(doc(db, "todos", id)).then(() => {
         alert("削除が完了しました");
       }).catch((error) => {
-        console.error("failed", error)
+        console.error("failed", error);
         alert("削除に失敗しました");
       });
     } else {
       alert("キャンセルしました");
-    };
-  };
+    }
+  }
 
   return (
     <IconButton
@@ -25,4 +25,4 @@ export const DeleteButton = ({ id }) => {
       onClick={handleClickDelete}
     />
   );
-};
+}
