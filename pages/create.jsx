@@ -13,7 +13,6 @@ const TodoCreate = () => {
   const [todoText, setTodoText] = useState('');
   const [todoPriority, setTodoPriority] = useState('Low');
 
-
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -121,6 +120,6 @@ const TodoCreate = () => {
       </Box>
     </>
   );
-};
+}
 
 export default TodoCreate;

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Box, Button, Text, Input, Heading, VStack } from "@chakra-ui/react";
 import { updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../libs/firebase";
+import { Header } from '@/components/header';
 
 const  Signup = () => {
   //入力したデータをまとめる
@@ -65,14 +66,8 @@ const  Signup = () => {
 
   return (
     <>
-      <Heading w={"1280px"} h={"80px"} bg="#68D391">
-        <Box width={"127px"} height={"56px"}left={"99px"}top={"12px"} bg="68D391">
-          <Text paddingLeft={"20px"} fontWeight="bold" fontSize={'4xl'} fontStyle={'Roboto'} w={"127px"} h={"56px"} left={"99px"} top={"12px"}>
-            TODO
-          </Text>
-        </Box>
-      </Heading>
-
+      <Header />
+      
       <Box height={"calc(80vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
           <Box bg={"green.100"} p={"60px"}  borderRadius={"40px"}>

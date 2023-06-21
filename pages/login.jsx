@@ -2,8 +2,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Button, Text, Input, Heading, VStack, } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../libs/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Header } from "@/components/header";
 
 const Login = () => {
   const router = useRouter();
@@ -45,17 +46,11 @@ const Login = () => {
           break;
       }
     }
-  };
+  }
   
   return (
     <>
-      <Heading w={"1280px"} h={"80px"} bg="#68D391">
-        <Box width={"127px"} height={"56px"}left={"99px"}top={"12px"} bg="68D391">
-          <Text paddingLeft={"20px"} fontWeight="bold" fontSize={'4xl'} fontStyle={'Roboto'} w={"127px"} h={"56px"} left={"99px"} top={"12px"}>
-            TODO
-          </Text>
-        </Box>
-      </Heading>
+      <Header />
 
       <Box height={"calc(80vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
