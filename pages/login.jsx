@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Box, Button, Text, Input, Heading, VStack, } from "@chakra-ui/react";
+import { Box, Button, Text, Input, VStack, } from "@chakra-ui/react";
 import { auth } from "../libs/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Header } from "@/components/header";

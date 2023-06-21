@@ -7,7 +7,6 @@ import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { DateDisplay } from "../../components/DateDisplay";
 import { Header } from "@/components/header";
 
-
 const EditTodo = () => {
   const router = useRouter();
   const todoId = router.query.id;

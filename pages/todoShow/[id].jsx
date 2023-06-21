@@ -5,7 +5,6 @@ import { db } from "@/libs/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-
 import { ComentCards } from "../../components/comentCards";
 import { ModalTodoShow } from "../../components/modalTodoShow";
 import { DateDisplay } from "@/components/DateDisplay";

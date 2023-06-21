@@ -6,7 +6,6 @@ import { EditIcon } from "@chakra-ui/icons";
 import { auth, db } from "@/libs/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-
 import { status } from "@/config/todo";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
@@ -18,7 +17,6 @@ import { Header } from "@/components/header";
 
 const Top = () => {
   const router = useRouter();
-
   const { todos } = useTodo();
   const [searchTitle, setSearchTitle] = useState("");
   const [filter, setFilter] = useState("-------");
