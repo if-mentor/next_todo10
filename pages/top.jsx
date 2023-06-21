@@ -10,11 +10,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { status } from "@/config/todo";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
-import { TodoHeader } from "@/components/Header";
 import { DeleteButton } from "@/components/button/DeleteButton";
 import { EditButton } from "@/components/button/EditButton";
 import { SearchInput } from "@/components/topComponent/searchInput";
 import { ResetButton } from "@/components/topComponent/resetButton";
+import { Header } from "@/components/header";
 
 const Top = () => {
   const router = useRouter();
@@ -131,7 +131,7 @@ const Top = () => {
   if (userAuth !== null) {
     return (
       <>
-        <TodoHeader />
+        <Header />
 
         <Box maxW="1080px" m="0 auto">
           <Heading as="h2" size="2xl" mt="2">

@@ -5,7 +5,8 @@ import { Box, Button, Flex, FormControl, FormLabel, Input, Spacer, Heading, Text
 import { db } from "@/libs/firebase";
 import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { DateDisplay } from "../../components/DateDisplay";
-import { TodoHeader } from "@/components/Header";
+import { Header } from "@/components/header";
+
 
 const EditTodo = () => {
   const router = useRouter();
@@ -81,7 +82,7 @@ const EditTodo = () => {
 
   return (
     <>
-      <TodoHeader />
+      <Header />
 
       <Container w="85%" maxW="1080px" pt="16px">
         <Box>

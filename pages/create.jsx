@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { Input, Textarea, Button, FormControl, FormLabel, Box, Text, } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { TodoHeader } from "@/components/Header";
 import { RadioButton } from '@/components/createComponent/radioButton';
+import { Header } from '@/components/header';
 
 const TodoCreate = () => {
   const router = useRouter();
@@ -50,8 +50,7 @@ const TodoCreate = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <TodoHeader />
-      {/* ヘッダー変えてます */}
+      <Header />
 
       <Box mr="100px" ml="100px" w="1080px" h="104px">
         <Box pb="15px" h="63" display="flex" justifyContent="space-between">

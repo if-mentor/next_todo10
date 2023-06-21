@@ -1,7 +1,7 @@
 import { Box, Heading } from "@chakra-ui/react"
 import { Logout } from "./button/Logout";
 
-export const TodoHeader = () => {
+export const Header = () => {
   return (
     <Box bg='#68D391' w='100%' p={4} display="flex" >
       <Heading 

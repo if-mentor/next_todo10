@@ -8,8 +8,8 @@ import { EditIcon } from "@chakra-ui/icons";
 
 import { ComentCards } from "../../components/comentCards";
 import { ModalTodoShow } from "../../components/modalTodoShow";
-import { TodoHeader } from "@/components/Header";
 import { DateDisplay } from "@/components/DateDisplay";
+import { Header } from "@/components/header";
 
 const TodoShow = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const TodoShow = () => {
   return (
     <>
       <Box>
-        <TodoHeader />
+        <Header />
 
         <Box maxW="1080px" margin="0 auto">
           <Box
