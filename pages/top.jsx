@@ -121,12 +121,8 @@ const Top = () => {
       } else {
         setUserAuth(user);
       }
-    }, []);
+    });
   }, []);
-
-  useEffect(() => {
-    console.log(todos)
-  }, [todos])
 
   if (userAuth !== null) {
     return (
