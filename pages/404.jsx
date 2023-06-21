@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import Link from "next/link";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 
 const NotFound = () => {
   return (
@@ -66,6 +66,6 @@ const NotFound = () => {
       </Flex>
     </>
   );
-};
+}
 
 export default NotFound;

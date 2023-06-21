@@ -1,56 +1,45 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { Input, Textarea, Button, FormControl, FormLabel, Box, Text, } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
-import { TodoHeader } from "@/components/header";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { TodoHeader } from "@/components/Header";
 import { RadioButton } from '@/components/createComponent/radioButton';
-import {
-  Input,
-  Textarea,
-  Button,
-  FormControl,
-  FormLabel,
-  Box,
-  Text,
-} from "@chakra-ui/react";
 
 const TodoCreate = () => {
-  const [todoTitle, setTodoTitle] = useState('') 
-  const [todoText, setTodoText] = useState('')
-  const [todoPriority, setTodoPriority] = useState('Low')
-  const [todos, setTodos] = useState([])
-
   const router = useRouter();
+  const [todoTitle, setTodoTitle] = useState(''); 
+  const [todoText, setTodoText] = useState('');
+  const [todoPriority, setTodoPriority] = useState('Low');
+
 
   const handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
+
     if (todoTitle.trim() ==="") {
       alert("Titleが入力されていません");
       return false;
     }
+
     if (todoText.trim() ==="") {
       alert("Detailが入力されていません");
       return false;
     }
-    setTodos({
-      title: todoTitle, 
-      detail: todoText, 
-      priority: todoPriority, 
-    })
+
     addDoc(collection(db, "todos"), {
       title:todoTitle,
       detail: todoText,
       status: "not started",
       priority: todoPriority,
       createDate: serverTimestamp(),
-      updateDate: serverTimestamp() ,
+      updateDate: serverTimestamp(),
     });
+
     setTodoTitle("");
     setTodoText("");
     setTodoPriority("Low");
-    router.push('/top')
-    // 同時にページ遷移起こるようにしました
+    router.push('/top');
   }
 
   return (
@@ -97,6 +86,7 @@ const TodoCreate = () => {
                 onChange={e => setTodoTitle(e.target.value)}
               />
             </FormControl>
+
             <FormControl marginBottom="16px">
               <FormLabel htmlFor="description">DETAIL</FormLabel>
               <Textarea 
@@ -106,11 +96,13 @@ const TodoCreate = () => {
                 onChange={e => setTodoText(e.target.value)}
               />
             </FormControl>
+            
             <FormControl>
               <FormLabel>PRIORITY</FormLabel>
               <RadioButton todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
             </FormControl>
           </Box>
+
           <Box display="flex" justifyContent="flex-end">
             <Button
               type="submit"

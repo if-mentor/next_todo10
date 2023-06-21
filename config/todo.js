@@ -1,16 +1,22 @@
 export const status = [
   {
     text: "not started",
-    backgroundColor: "#000"
+    backgroundColor: "green.100",
+    color: "blackAlpha.800",
+    word: "NOT STARTED",
   },
 
   {
     text: "doing",
-    backgroundColor: "green"
+    backgroundColor: "green.600",
+    color: "white",
+    word: "DOING",
   },
 
   {
     text: "done",
-    backgroundColor: "blue"
-  }
+    backgroundColor: "green.300",
+    color: "blackAlpha.800",
+    word: "DONE",
+  },
 ];
