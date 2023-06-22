@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { Input, Textarea, Button, FormControl, FormLabel, Box, Text, } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { RadioButton } from '@/components/createComponent/radioButton';
 import { Header } from '@/components/header';
+import { Radio } from '@/components/button/Radio';
 
 const TodoCreate = () => {
   const router = useRouter();
@@ -97,7 +97,7 @@ const TodoCreate = () => {
             
             <FormControl>
               <FormLabel>PRIORITY</FormLabel>
-              <RadioButton todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
+              <Radio todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
             </FormControl>
           </Box>
 

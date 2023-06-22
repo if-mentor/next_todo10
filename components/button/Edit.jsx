@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { IconButton } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 
-export const EditButton = ({ id }) => {
+export const Edit = ({ id }) => {
   return (
     <Link href={`edittodo/${id}`}>
       <IconButton

@@ -16,7 +16,7 @@ const Login = () => {
       ...formData,
       [e.target.id]: e.target.value,
     });
-  };
+  }
 
   //エラー時のバリデーション
   const [error, setError] = useState('');
