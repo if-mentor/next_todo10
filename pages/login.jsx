@@ -1,54 +1,35 @@
-import React from 'react'
 import { useState } from "react";
-import { useRouter } from "next/router";
-import {
-  Box,
-  Button,
-  Text,
-  Input,
-  Heading,
-  VStack,
-} from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../libs/firebase";
 import Link from "next/link";
-
-
+import { useRouter } from "next/router";
+import { Box, Button, Text, Input, VStack, } from "@chakra-ui/react";
+import { auth } from "../libs/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Header } from "@/components/header";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    });
+  const router = useRouter();
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { email, password } = formData;
 
   const onChangeFormData = (e) => {
     setFormData({
-    ...formData,
-    [e.target.id]: e.target.value,
+      ...formData,
+      [e.target.id]: e.target.value,
     });
-  };
-
-  const router = useRouter();
+  }
 
   //エラー時のバリデーション
   const [error, setError] = useState('');
 
-
   const onSubmitFormData = async (e) => {
     e.preventDefault();
     try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    if (userCredential.user) {
-      router.push("/top")
-    }
-    }
+      const userCredential = await signInWithEmailAndPassword( auth, email, password );
 
-    catch (error){
+      if (userCredential.user) {
+        router.push("/top")
+      }
+    } catch (error) {
       //エラーのメッセージの表示
       switch (error.code) {
         case 'auth/invalid-email':
@@ -65,17 +46,11 @@ const Login = () => {
           break;
       }
     }
-  };
+  }
   
   return (
     <>
-      <Heading w={"1280px"} h={"80px"} bg="#68D391">
-        <Box width={"127px"} height={"56px"}left={"99px"}top={"12px"} bg="68D391">
-          <Text paddingLeft={"20px"} fontWeight="bold" fontSize={'4xl'} fontStyle={'Roboto'} w={"127px"} h={"56px"} left={"99px"} top={"12px"}>
-            TODO
-          </Text>
-        </Box>
-      </Heading>
+      <Header />
 
       <Box height={"calc(80vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
@@ -113,7 +88,6 @@ const Login = () => {
             </Box>
 
             <VStack textAlign={"center"}>
-              {/* エラー時のメッセージ */}
               {error && <p style={{ color: 'red' }}>{error}</p>}
               <Button onClick={(e)=>onSubmitFormData(e)} display={"inline-block"} mt={"24px"} color={"white"} bg={"green.600"} borderRadius={"50px"} height={"60px"} width={"200px"}>
                 LOGIN
@@ -123,9 +97,8 @@ const Login = () => {
           </Box>
         </Box>
       </Box>
-
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

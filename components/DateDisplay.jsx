@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function DateDisplay({ date }) {
+export const DateDisplay = ({ date }) => {
   const [dateMessage, setDateMessage] = useState("");
 
   useEffect(() => {
@@ -15,5 +15,6 @@ export function DateDisplay({ date }) {
       setDateMessage(dates);
     }
   }, [date]);
+
   return <>{dateMessage}</>;
 }

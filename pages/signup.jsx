@@ -1,22 +1,10 @@
-import React from 'react'
 import { useState } from 'react'
-import { useRouter } from "next/router";
-import {
-  Box,
-  Button,
-  Text,
-  Input,
-  Heading,
-  VStack,
-} from "@chakra-ui/react";
-import {
-  updateProfile,
-  createUserWithEmailAndPassword,
-  } from "firebase/auth";
-  import { auth } from "../libs/firebase";
 import Link from "next/link";
-
-
+import { useRouter } from "next/router";
+import { Box, Button, Text, Input, Heading, VStack } from "@chakra-ui/react";
+import { updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../libs/firebase";
+import { Header } from '@/components/header';
 
 const  Signup = () => {
   //入力したデータをまとめる
@@ -41,50 +29,45 @@ const  Signup = () => {
 
   const onSubmitFormData = async (e) => {
     e.preventDefault();
+
     try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    // データベースに登録する
-    updateProfile(auth.currentUser, {displayName: name,}
-    );
-    //topにページ遷移する
-      router.push("/top")
-     } catch (error){
-        //エラーのメッセージの表示
-        console.log(error);
-        switch (error.code) {
-          case "auth/network-request-failed":
+      await createUserWithEmailAndPassword( auth, email, password );
+
+      // データベースに登録する
+      updateProfile(auth.currentUser, {displayName: name,});
+
+      //topにページ遷移する
+      router.push("/top");
+    } catch (error) {
+      //エラーのメッセージの表示
+      switch (error.code) {
+        case "auth/network-request-failed":
           setError("通信がエラーになったのか、またはタイムアウトになりました。通信環境がいい所で再度やり直してください。");
           break;
-          case "auth/weak-password":
+
+        case "auth/weak-password":
           setError("パスワードが短すぎます。6文字以上を入力してください。");
-           break;
-          case "auth/invalid-email":
+          break;
+
+        case "auth/invalid-email":
           setError("メールアドレスが正しくありません");
           break;
-          case "auth/email-already-in-use":
+
+        case "auth/email-already-in-use":
           setError("メールアドレスがすでに使用されています。ログインするか別のメールアドレスで作成してください");
           break;
-          default:
+
+        default:
           setError("アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。");
-        }
+      }
     }
   };
   
 
   return (
     <>
-      <Heading w={"1280px"} h={"80px"} bg="#68D391">
-        <Box width={"127px"} height={"56px"}left={"99px"}top={"12px"} bg="68D391">
-          <Text paddingLeft={"20px"} fontWeight="bold" fontSize={'4xl'} fontStyle={'Roboto'} w={"127px"} h={"56px"} left={"99px"} top={"12px"}>
-            TODO
-          </Text>
-        </Box>
-      </Heading>
-
+      <Header />
+      
       <Box height={"calc(80vh - 80px)"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box height={"424px"} width={"747px"} mt={"100px"} >
           <Box bg={"green.100"} p={"60px"}  borderRadius={"40px"}>
@@ -129,8 +112,7 @@ const  Signup = () => {
         </Box>
       </Box>
     </>
-  )
-  }
+  );
+}
 
-
-export default Signup
+export default Signup;

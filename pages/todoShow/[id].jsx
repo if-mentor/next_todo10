@@ -1,66 +1,41 @@
-/* 
-@決めごと
-figmaのレイヤーに沿って命名
-文字の色とサイズはまだ触らない
-
-@悩みごと
-モーダルをどうするか　useDisclosure()を使わず表示できる？
-cssの書く場所はどこにすべきか
-さすがにスマホサイズとかは作らないですよね…？
-grid,overlayの扱いが分からない
-Boxだらけで見づらい。。。
-
-@やったこと
-あまりにも長いので一部コンポーネント化しました。
-modalはopenmodalを押して消すところだけ実装しました。
-
-@おすすめ機能
-auto rename tag
-locator js
-
-@タスク
-主なレイヤー→ Grid,Header,Title,CommentButton,BackButton,showTable,CommentList,overlay,commentModal
-
-*/
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { db } from "@/libs/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { Box, Button, HStack, VStack, Spacer } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { ComentCards } from "../../components/comentCards";
 import { ModalTodoShow } from "../../components/modalTodoShow";
-import { TodoHeader } from "@/components/header";
 import { DateDisplay } from "@/components/DateDisplay";
-import { useGettingId } from "@/hooks/useGettingId";
+import { Header } from "@/components/header";
 
 const TodoShow = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [createDate, setCreateDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const { todoId } = useGettingId();
-
-  //後でhooksに切り分ける
 
   useEffect(() => {
     const fetchData = async () => {
-      const docRef = doc(db, "todos", todoId);
+      const docRef = doc(db, "todos", router.query.id);
       const docSnap = await getDoc(docRef);
       setTitle(docSnap.data().title);
       setDetail(docSnap.data().detail);
       setCreateDate(docSnap.data().createDate.toDate());
       setUpdateDate(docSnap.data().updateDate.toDate());
     };
-    if (todoId) {
+
+    if (router.query.id) {
       fetchData();
     }
-  }, [todoId]);
+  }, [router.query.id]);
 
   return (
     <>
       <Box>
-        <TodoHeader />
+        <Header />
 
         <Box maxW="1080px" margin="0 auto">
           <Box
@@ -93,7 +68,6 @@ const TodoShow = () => {
 
           <Box display="flex" justifyContent="space-between">
             <VStack
-              // position={"absolute"}
               w={"592px"}
               h={"480px"}
               left={"100px"}
@@ -104,7 +78,6 @@ const TodoShow = () => {
             >
               {/* TITLE */}
               <Box
-                // position={"absolute"}
                 w={"560px"}
                 h={"61px"}
                 left={"16px"}
@@ -118,7 +91,6 @@ const TodoShow = () => {
 
               {/* DETAIL */}
               <Box
-                // position={"absolute"}
                 w={"560px"}
                 h={"291px"}
                 left={"16px"}
@@ -132,17 +104,13 @@ const TodoShow = () => {
 
               {/* FOOTER */}
               <HStack
-                // position={"absolute"}
                 w={"560px"}
                 h={"45px"}
                 left={"16px"}
                 top={"400px"}
               >
                 {/* edittodoへのリンク */}
-                <Link
-                  as={`/edittodo/${todoId}`}
-                  href={{ pathname: `/edittodo/[id]` }}
-                >
+                <Link as={`/edittodo/${router.query.id}`} href={{ pathname: `/edittodo/[id]` }}>
                   <Button>
                     Edit
                     <EditIcon />
@@ -166,10 +134,8 @@ const TodoShow = () => {
           </Box>
         </Box>
       </Box>
-
-      {/* ここまで */}
     </>
   );
-};
+}
 
 export default TodoShow;

@@ -2,7 +2,6 @@
 ## 開発メンバー
   - ケン
   - sei
-  - Taichi Asami
   - m.t
   - Rie N
   

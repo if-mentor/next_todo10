@@ -1,16 +1,14 @@
+import { useEffect, useState } from "react";
 import { db } from "@/libs/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import { useState } from "react";
 
 export const useTodo = () => {
   const [todos, setTodos] = useState([]);
 
-  //Read(ここから)///////////////////////////
-
-  const readData = async () => {
-    const todoData = collection(db, "todos");
-    onSnapshot(todoData, (snapshot) => {
+  useEffect(() => {
+    onSnapshot(collection(db, "todos"), (snapshot) => {
       const newTodos = [];
+
       snapshot.docs.map((doc) => {
         const todo = {
           id: doc.id,
@@ -22,12 +20,12 @@ export const useTodo = () => {
           updateDate: doc.data().updateDate.toDate(),
           action: "icons",
         };
+        
         newTodos.push({ ...todo });
       });
       setTodos(newTodos);
     });
-  };
-  console.log(todos.map((todo) => todo));
-  //Read(ここまで)////////////////////////////
-  return { todos, setTodos, readData };
-};
+  }, []);
+
+  return { todos }
+}

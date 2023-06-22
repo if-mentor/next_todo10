@@ -1,34 +1,15 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Spacer,
-  Heading,
-  Textarea,
-  Text,
-  Container,
-} from "@chakra-ui/react";
-// import Head from 'next/head'
-import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { db } from "@/libs/firebase";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Box, Button, Flex, FormControl, FormLabel, Input, Spacer, Heading, Textarea, Text, Container } from "@chakra-ui/react";
+import { db } from "@/libs/firebase";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { DateDisplay } from "../../components/DateDisplay";
-import { TodoHeader } from "@/components/header";
+import { Header } from "@/components/header";
 
 const EditTodo = () => {
-  //?
   const router = useRouter();
   const todoId = router.query.id;
-  //動的ルートのurlが入ってくる
-  console.log(todoId)
-  // const todoId  = "0P6N4an8xyK5LtLxJ1BH"
-
-  //選択したtodoのidをURLから取得する
 
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
@@ -39,38 +20,29 @@ const EditTodo = () => {
   //入力したtitle保持（画面上）
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
-  };
+  }
 
   //入力したdetail保持（画面上）
   const handleChangeDetail = (e) => {
     setDetail(e.target.value);
-  };
+  }
 
-  //初期状態のtodoのtitleとdetailを
-  //firebaseから取得して表示している（非同期処理）
-
-  //？onSnapShotに書き換える？
-  //➡書き換えしたら、setUpdateのところでエラーが出た
   useEffect(() => {
     const fetchData = async () => {
       const docRef = doc(db, "todos", todoId);
-      //第三引数に動的ルートを使う
-      //docという変数があるのか？
     
       const docSnap = await getDoc(docRef);
       setTitle(docSnap.data().title);
       setDetail(docSnap.data().detail);
       setCreateDate(docSnap.data().createDate.toDate());
       setUpdateDate(docSnap.data().updateDate.toDate());
-      console.log(todoId)
-    };
+    }
+
     if (todoId) {
       fetchData();
     }
   }, [todoId]);
 
-  //入力した（編集した）titleとdetailを
-  //firebaseに送り返すためにeditTodoに上書きする
   useEffect(() => {
     const changeEditTodo = () => {
       setEditTodo({
@@ -78,18 +50,21 @@ const EditTodo = () => {
         title: title,
         detail: detail,
       });
-    };
+    }
+
     changeEditTodo();
   }, [title, detail]);
 
   //updateボタンを押したときの動作
   const handleEditTodo = async (e) => {
     e.preventDefault();
+
     if (editTodo.title.trim() === "") {
       return alert("titeが空です");
     } else if (editTodo.detail.trim() === "") {
       return alert("detailが空です");
     }
+
     try {
       await updateDoc(doc(db, "todos", todoId), {
         title: editTodo.title,
@@ -102,11 +77,11 @@ const EditTodo = () => {
     }
     // topページに戻る
     router.push("/top");
-  };
+  }
 
   return (
     <>
-      <TodoHeader />
+      <Header />
 
       <Container w="85%" maxW="1080px" pt="16px">
         <Box>
@@ -191,5 +166,6 @@ const EditTodo = () => {
       </Container>
     </>
   );
-};
+}
+
 export default EditTodo;
