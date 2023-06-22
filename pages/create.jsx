@@ -5,7 +5,7 @@ import { Input, Textarea, Button, FormControl, FormLabel, Box, Text, } from "@ch
 import { db } from "@/libs/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Header } from '@/components/header';
-import { Radio } from '@/components/button/Radio';
+import { RadioButton } from '@/components/button/RadioButton';
 
 const TodoCreate = () => {
   const router = useRouter();
@@ -97,7 +97,7 @@ const TodoCreate = () => {
             
             <FormControl>
               <FormLabel>PRIORITY</FormLabel>
-              <Radio todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
+              <RadioButton todoPriority={todoPriority} setTodoPriority={setTodoPriority}/>
             </FormControl>
           </Box>
 

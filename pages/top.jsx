@@ -9,11 +9,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { status } from "@/config/todo";
 import { useTodo } from "../hooks/useTodo";
 import { DateDisplay } from "../components/DateDisplay";
-import { Delete } from "@/components/button/Delete";
-import { Edit } from "@/components/button/Edit";
+import { DeleteButton } from "@/components/button/DeleteButton";
+import { EditButton } from "@/components/button/EditButton";
+import { ResetButton } from "@/components/button/ResetButton";
 import { SearchInput } from "@/components/topComponent/searchInput";
 import { Header } from "@/components/header";
-import { Reset } from "@/components/button/Reset";
 
 const Top = () => {
   const router = useRouter();
@@ -162,7 +162,7 @@ const Top = () => {
               </Select>
             </Box>
 
-            <Reset />
+            <ResetButton />
             
             <Spacer />
             <Box mt="10">
@@ -267,8 +267,8 @@ const Top = () => {
 
                     <Td>
                       <Flex justifyContent="space-around">
-                        <Edit id={todo.id} />
-                        <Delete id={todo.id} />
+                        <EditButton id={todo.id} />
+                        <DeleteButton id={todo.id} />
                       </Flex>
                     </Td>
                   </Tr>

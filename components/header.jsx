@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react"
-import { Logout } from "./button/Logout";
+import { LogoutButton } from "./button/LogoutButton";
 
 export const Header = () => {
   return (
@@ -14,7 +14,7 @@ export const Header = () => {
         TODO
       </Heading>
 
-      <Logout />
+      <LogoutButton />
     </Box>
   );
 }

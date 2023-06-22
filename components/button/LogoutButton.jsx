@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Box, Button } from '@chakra-ui/react';
 import { auth } from '@/libs/firebase';
 
-export const Logout = () => {
+export const LogoutButton = () => {
   const router = useRouter();
   
   const handleClickLogout = async () => {

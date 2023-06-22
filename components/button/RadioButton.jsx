@@ -1,9 +1,8 @@
 import { HStack, Radio, RadioGroup } from "@chakra-ui/react";
-import "../../pages/create"
 
-export const Radio = (props) => {
-  const {todoPriority, setTodoPriority} = props
-  const PriorityCollection = ["High", "Middle", "Low"]
+export const RadioButton = (props) => {
+  const {todoPriority, setTodoPriority} = props;
+  const PriorityCollection = ["High", "Middle", "Low"];
 
   return (
     <RadioGroup onChange={setTodoPriority} value={todoPriority}>
