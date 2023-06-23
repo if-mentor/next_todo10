@@ -8,7 +8,6 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 export const ModalTodoShow = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState([]);
@@ -60,19 +59,13 @@ export const ModalTodoShow = () => {
             <ModalBody top={"100px"}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Input
-                  // placeholder="内田裕也"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+                <Input value={name} onChange={(e) => setName(e.target.value)} />
               </FormControl>
               <FormControl>
                 <FormLabel>Your Comment</FormLabel>
-                {/* 開始位置が真ん中、改行が出来ない */}
                 <Input
                   w={"350px"}
                   h={"245px"}
-                  // placeholder="シェケナベイべ"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 />
