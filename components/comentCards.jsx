@@ -3,15 +3,13 @@ import { useRouter } from "next/router";
 import { VStack, Box, HStack, Center } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
 import { getDocs, query, collection, where } from "firebase/firestore";
-
 import * as styles from "../styles/comentCards.module.css";
-import { DateDisplay } from "./DateDisplay";
+import { DateDisplay } from "../utils/DateDisplay";
 
 export const ComentCards = () => {
   const router = useRouter();
   const [commentList, setCommentlist] = useState([]);
 
-  //getDocだと単一データしか取れなかった
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(
@@ -55,4 +53,4 @@ export const ComentCards = () => {
       )}
     </>
   );
-};
+}

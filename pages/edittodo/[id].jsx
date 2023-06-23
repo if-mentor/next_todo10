@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Box, Button, Flex, FormControl, FormLabel, Input, Spacer, Heading, Textarea, Text, Container } from "@chakra-ui/react";
 import { db } from "@/libs/firebase";
 import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { DateDisplay } from "../../components/DateDisplay";
+import { DateDisplay } from "../../utils/DateDisplay";
 import { Header } from "@/components/header";
 
 const EditTodo = () => {

@@ -8,7 +8,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { status } from "@/config/todo";
 import { useTodo } from "../hooks/useTodo";
-import { DateDisplay } from "../components/DateDisplay";
+import { DateDisplay } from "../utils/DateDisplay";
 import { DeleteButton } from "@/components/button/DeleteButton";
 import { EditButton } from "@/components/button/EditButton";
 import { ResetButton } from "@/components/button/ResetButton";

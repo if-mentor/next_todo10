@@ -1,7 +1,10 @@
 import { Box, Heading } from "@chakra-ui/react"
 import { LogoutButton } from "./button/LogoutButton";
+import { useAuthContext } from "@/contexts/FirebaseAuthContext";
 
 export const Header = () => {
+  const { account } = useAuthContext();
+
   return (
     <Box bg='#68D391' w='100%' p={4} display="flex" >
       <Heading 
@@ -14,7 +17,7 @@ export const Header = () => {
         TODO
       </Heading>
 
-      <LogoutButton />
+      {account && <LogoutButton />}
     </Box>
   );
 }
